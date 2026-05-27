@@ -13,16 +13,36 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Admin {
+public class Dish {
 
     @TableId(type = IdType.AUTO)
     public Long id;
 
-    public String username;
+    public Long shopId;
 
-    public String password;
+    public Long categoryId;
+
+    public String name;
+
+    public String description;
+
+    public String ingredients;//原料
+
+    public String serving;//份量
+
+    public Double price;
+
+    public String image;
+
+    public Integer monthlySales;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public LocalDateTime createTime;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public LocalDateTime updateTime;
+
+
 }
