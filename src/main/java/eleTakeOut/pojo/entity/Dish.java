@@ -16,33 +16,33 @@ import java.time.LocalDateTime;
 public class Dish {
 
     @TableId(type = IdType.AUTO)
-    public Long id;
+    private Long id;
 
-    public Long shopId;
+    private Long shopId;
 
-    public Long categoryId;
+    private Long categoryId;
 
-    public String name;
+    private String name;
 
-    public String description;
+    private String description;
 
-    public String ingredients;//原料
+    private String ingredients;//原料
 
-    public String serving;//份量
+    private String serving;//份量
 
-    public Double price;
+    private Double price;
 
-    public String image;
+    private String image;
 
-    public Integer monthlySales;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    public LocalDateTime createTime;
+    private Integer monthlySales;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    public LocalDateTime updateTime;
+    private LocalDateTime createTime;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
 
 
 }

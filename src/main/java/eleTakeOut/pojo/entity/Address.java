@@ -12,17 +12,17 @@ import lombok.NoArgsConstructor;
 public class Address {
 
     @TableId(type = IdType.AUTO)
-    public Long id;
+    private Long id;
 
-    public Long userId;
+    private Long userId;
 
-    public String tag;
+    private String tag;
 
-    public String detail;//详细地址
+    private String detail;//详细地址
 
-    public String name;//收件人
+    private String name;//收件人
 
-    public String phone;
+    private String phone;
 
-    public Integer isDefault;//默认地址 1是0否
+    private Integer isDefault;//默认地址 1是0否
 }

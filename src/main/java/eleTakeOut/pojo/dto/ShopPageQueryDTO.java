@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ShopPageQueryDTO {
 
-    public String keyword;
+    private String keyword;
 
-    public Integer page;
+    private Integer page;
 
-    public Integer pageSize;
+    private Integer pageSize;
 }

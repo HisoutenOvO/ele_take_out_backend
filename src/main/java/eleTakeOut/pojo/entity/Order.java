@@ -16,27 +16,27 @@ import java.time.LocalDateTime;
 public class Order {
 
     @TableId(type = IdType.AUTO)
-    public Long id;
+    private Long id;
 
-    public String number;//订单号
+    private String number;//订单号
 
-    public Long userId;
+    private Long userId;
 
-    public Long shopId;
+    private Long shopId;
 
-    public Long addressId;
+    private Long addressId;
 
-    public String status;//状态(待支付/已支付/配送中/已完成/已取消/已退款)
+    private String status;//状态(待支付/已支付/配送中/已完成/已取消/已退款)
 
-    public Double totalPrice;
+    private Double totalPrice;
 
-    public Double deliveryFee;
+    private Double deliveryFee;
 
-    public Double actualPayment;//实付金额=总价-优惠（优惠是前端固定的金额）
+    private Double actualPayment;//实付金额=总价-优惠（优惠是前端固定的金额）
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    public LocalDateTime createTime;
+    private LocalDateTime createTime;
 
 
 }

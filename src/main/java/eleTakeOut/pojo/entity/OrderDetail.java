@@ -12,17 +12,17 @@ import lombok.NoArgsConstructor;
 public class OrderDetail {
 
     @TableId(type = IdType.AUTO)
-    public Long id;
+    private Long id;
 
-    public String name;
+    private String name;
 
-    public String image;
+    private String image;
 
-    public Long categoryId;
+    private Long categoryId;
 
-    public Long dishId;
+    private Long dishId;
 
-    public Integer number;
+    private Integer number;
 
-    public Double amount;//菜品单价
+    private Double amount;//菜品单价
 }

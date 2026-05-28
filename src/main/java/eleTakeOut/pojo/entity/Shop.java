@@ -16,40 +16,40 @@ import java.time.LocalDateTime;
 public class Shop {
 
     @TableId(type = IdType.AUTO)
-    public Long id;
+    private Long id;
 
-    public String name;
+    private String name;
 
-    public String password;//md5
+    private String password;//md5
 
-    public Double rating;
+    private Double rating;
 
-    public Long monthlySales;
+    private Long monthlySales;
 
-    public Integer deliveryTime;
+    private Integer deliveryTime;
 
-    public String distance;
+    private String distance;
 
-    public Double minPrice;
+    private Double minPrice;
 
-    public Double deliveryFee;
+    private Double deliveryFee;
 
-    public Integer campus;
+    private Integer campus;
 
-    public String special;
+    private String special;
 
-    public String image;
+    private String image;
 
-    public String notice;
+    private String notice;
 
-    public Integer status;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    public LocalDateTime createTime;
+    private Integer status;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    public LocalDateTime updateTime;
+    private LocalDateTime createTime;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
 
 }

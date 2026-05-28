@@ -16,13 +16,13 @@ import java.time.LocalDateTime;
 public class Admin {
 
     @TableId(type = IdType.AUTO)
-    public Long id;
+    private Long id;
 
-    public String username;
+    private String username;
 
-    public String password;
+    private String password;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    public LocalDateTime createTime;
+    private LocalDateTime createTime;
 }

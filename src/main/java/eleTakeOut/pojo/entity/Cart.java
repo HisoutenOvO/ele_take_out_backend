@@ -12,17 +12,17 @@ import lombok.NoArgsConstructor;
 public class Cart {
 
     @TableId(type = IdType.AUTO)
-    public Long id;
+    private Long id;
 
-    public String name;
+    private String name;
 
-    public String image;
+    private String image;
 
-    public Long userId;
+    private Long userId;
 
-    public Long dishId;
+    private Long dishId;
 
-    public Integer number;
+    private Integer number;
 
-    public Double amount;
+    private Double amount;
 }

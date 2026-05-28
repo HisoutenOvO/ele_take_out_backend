@@ -16,18 +16,18 @@ import java.time.LocalDateTime;
 public class User {
 
     @TableId(type = IdType.AUTO)
-    public Long id;
+    private Long id;
 
-    public String username;//账号名称
+    private String username;//账号名称
 
-    public String password;//md5加密
+    private String password;//md5加密
 
-    public String phone;
+    private String phone;
 
-    public String nickname;//用户名称
+    private String nickname;//用户名称
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    public LocalDateTime createTime;
+    private LocalDateTime createTime;
 
 }

@@ -16,19 +16,19 @@ import java.time.LocalDateTime;
 public class Category {
 
     @TableId(type = IdType.AUTO)
-    public Long id;
+    private Long id;
 
-    public Long shopId;
+    private Long shopId;
 
-    public String name;
+    private String name;
 
-    public String emoji;//分类图标
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    public LocalDateTime createTime;
+    private String emoji;//分类图标
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    public LocalDateTime updateTime;
+    private LocalDateTime createTime;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
 }
