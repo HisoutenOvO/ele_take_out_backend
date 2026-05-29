@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController("")
+@RestController("userShopController")
 @RequestMapping("/user/shops")
 @Tag(name = "用户-店铺管理")
 @Slf4j

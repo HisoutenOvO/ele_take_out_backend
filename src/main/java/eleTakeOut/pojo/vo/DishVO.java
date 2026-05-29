@@ -11,15 +11,27 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryVO {
+public class DishVO {
 
     private Long id;
 
     private Long shopId;
 
+    private Long categoryId;
+
     private String name;
 
-    private String emoji;
+    private String description;
+
+    private String ingredients;//原料
+
+    private String serving;//份量
+
+    private Double price;
+
+    private String image;
+
+    private Integer monthlySales;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
