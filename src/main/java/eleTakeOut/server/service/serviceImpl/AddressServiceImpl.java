@@ -19,12 +19,11 @@ public class AddressServiceImpl implements AddressService {
 
     /**
      * 获取用户地址列表
-     * @param id
      * @return
      */
     @Override
-    public List<AddressVO> getAddress(Long id) {
-        return addressMapper.getAddressListByUserId(id);
+    public List<AddressVO> getAddress() {
+        return addressMapper.getAddressListByUserId(BaseContext.getCurrentId());
     }
 
     /**
@@ -42,4 +41,31 @@ public class AddressServiceImpl implements AddressService {
         }
         addressMapper.insert(address);
     }
+
+    /**
+     * 根据id查询地址
+     * @param id
+     * @return
+     */
+    @Override
+    public AddressVO getById(Long id) {
+        Address address = addressMapper.selectById(id);
+        AddressVO addressVO = new AddressVO();
+        BeanUtils.copyProperties(address,addressVO);
+        return addressVO;
+    }
+
+    /**
+     * 修改地址
+     * @param addressDTO
+     */
+    @Override
+    public void update(AddressDTO addressDTO,Long id) {
+        Address address = addressMapper.selectById(id);
+        BeanUtils.copyProperties(addressDTO,address);
+        address.setId(id);
+        addressMapper.updateById(address);
+    }
+
+
 }

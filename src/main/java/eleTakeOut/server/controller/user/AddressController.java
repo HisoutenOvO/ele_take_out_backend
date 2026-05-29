@@ -24,11 +24,11 @@ public class AddressController {
      * 查询用户地址列表
      * @return
      */
-    @GetMapping("/{id}")
+    @GetMapping
     @Operation(summary = "查询用户地址列表")
-    public Result<List<AddressVO>> addressList(@PathVariable Long id){
-        log.info("查询用户地址信息:{}",id);
-        List<AddressVO> addressVOList = addressService.getAddress(id);
+    public Result<List<AddressVO>> addressList(){
+        log.info("查询用户地址信息");
+        List<AddressVO> addressVOList = addressService.getAddress();
         return Result.success(addressVOList);
     }
 
@@ -42,6 +42,30 @@ public class AddressController {
     public Result add(@RequestBody AddressDTO addressDTO){
         log.info("新增地址");
         addressService.add(addressDTO);
+        return Result.success();
+    }
+
+    /**
+     * 根据地址id查询地址
+     * @return
+     */
+    @GetMapping("/{id}")
+    @Operation(summary = "根据地址id查询地址")
+    public Result<AddressVO> getById(@PathVariable Long id){
+        log.info("查询id:{}的地址",id);
+        AddressVO addressVO = addressService.getById(id);
+        return Result.success(addressVO);
+    }
+
+    /**
+     * 修改地址
+     * @return
+     */
+    @PutMapping("/{id}")
+    @Operation(summary = "修改地址")
+    public Result update(@RequestBody AddressDTO addressDTO,@PathVariable Long id){
+        log.info("修改地址id:{}",addressDTO.getId());
+        addressService.update(addressDTO,id);
         return Result.success();
     }
 }

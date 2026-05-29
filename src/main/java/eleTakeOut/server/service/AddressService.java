@@ -8,14 +8,26 @@ import java.util.List;
 public interface AddressService {
     /**
      * 查询用户地址列表
-     * @param id
      * @return
      */
-    List<AddressVO> getAddress(Long id);
+    List<AddressVO> getAddress();
 
     /**
      * 新增地址
      * @param addressDTO
      */
     void add(AddressDTO addressDTO);
+
+    /**
+     * 根据id查询地址
+     * @param id
+     * @return
+     */
+    AddressVO getById(Long id);
+
+    /**
+     * 修改地址
+     * @param addressDTO
+     */
+    void update(AddressDTO addressDTO,Long id);
 }
