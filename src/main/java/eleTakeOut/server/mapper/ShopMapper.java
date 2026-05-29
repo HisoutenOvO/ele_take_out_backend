@@ -4,7 +4,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.pagehelper.Page;
 import eleTakeOut.pojo.dto.ShopPageQueryDTO;
 import eleTakeOut.pojo.entity.Shop;
+import eleTakeOut.pojo.entity.ShopVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 @Mapper
 public interface ShopMapper extends BaseMapper<Shop> {
@@ -14,4 +18,11 @@ public interface ShopMapper extends BaseMapper<Shop> {
      * @return
      */
     Page<Shop> pageQuery(ShopPageQueryDTO shopPageQueryDTO);
+
+    /**
+     * 获取店铺
+     * @param keywords
+     * @return
+     */
+    List<ShopVO> getShopList(String keywords);
 }

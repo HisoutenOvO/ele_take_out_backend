@@ -10,4 +10,13 @@
         </where>
         order by update_time desc
     </select>
+    <select id="getShopList" resultType="eleTakeOut.pojo.entity.ShopVO">
+        select * from shop
+        <where>
+            <if test="keywords != null and keywords != ''">
+                name like concat('%',#{keyword},'%')
+            </if>
+        </where>
+        order by update_time desc
+    </select>
 </mapper>

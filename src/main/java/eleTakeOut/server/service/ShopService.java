@@ -4,6 +4,9 @@ import eleTakeOut.common.result.PageResult;
 import eleTakeOut.pojo.dto.ShopDTO;
 import eleTakeOut.pojo.dto.ShopPageQueryDTO;
 import eleTakeOut.pojo.entity.ShopVO;
+import eleTakeOut.pojo.vo.CategoryVO;
+
+import java.util.List;
 
 public interface ShopService {
     /**
@@ -37,4 +40,18 @@ public interface ShopService {
      * @param id
      */
     void deleteById(Long id);
+
+    /**
+     * 获取店铺列表
+     * @param shopPageQueryDTO
+     * @return
+     */
+    List<ShopVO> getShopList(ShopPageQueryDTO shopPageQueryDTO);
+
+    /**
+     * 获取店铺分类
+     * @param id
+     * @return
+     */
+    List<CategoryVO> getCategories(Long id);
 }
