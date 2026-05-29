@@ -1,6 +1,7 @@
 package eleTakeOut.server.service;
 
 import eleTakeOut.common.result.PageResult;
+import eleTakeOut.pojo.dto.ShopDTO;
 import eleTakeOut.pojo.dto.ShopPageQueryDTO;
 
 public interface ShopService {
@@ -10,4 +11,10 @@ public interface ShopService {
      * @return
      */
     PageResult pageQuery(ShopPageQueryDTO shopPageQueryDTO);
+
+    /**
+     * 新增店铺
+     * @param shopDTO
+     */
+    void add(ShopDTO shopDTO);
 }

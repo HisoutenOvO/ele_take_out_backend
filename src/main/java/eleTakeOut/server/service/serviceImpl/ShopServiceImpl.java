@@ -3,11 +3,13 @@ package eleTakeOut.server.service.serviceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import eleTakeOut.common.result.PageResult;
+import eleTakeOut.pojo.dto.ShopDTO;
 import eleTakeOut.pojo.dto.ShopPageQueryDTO;
 import eleTakeOut.pojo.entity.Shop;
 import eleTakeOut.server.mapper.ShopMapper;
 import eleTakeOut.server.service.ShopService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,5 +34,16 @@ public class ShopServiceImpl implements ShopService {
 
         return new PageResult(total,records);
 
+    }
+
+    /**
+     * 新增店铺
+     * @param shopDTO
+     */
+    @Override
+    public void add(ShopDTO shopDTO) {
+        Shop shop = new Shop();
+        BeanUtils.copyProperties(shopDTO,shop);
+        shopMapper.insert(shop);
     }
 }
