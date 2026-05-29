@@ -3,6 +3,7 @@ package eleTakeOut.server.service;
 import eleTakeOut.common.result.PageResult;
 import eleTakeOut.pojo.dto.ShopDTO;
 import eleTakeOut.pojo.dto.ShopPageQueryDTO;
+import eleTakeOut.pojo.entity.ShopVO;
 
 public interface ShopService {
     /**
@@ -17,4 +18,17 @@ public interface ShopService {
      * @param shopDTO
      */
     void add(ShopDTO shopDTO);
+
+    /**
+     * 根据id查询店铺信息
+     * @param id
+     * @return
+     */
+    ShopVO getById(Long id);
+
+    /**
+     * 修改店铺信息
+     * @param id
+     */
+    void update(Long id,ShopDTO shopDTO);
 }

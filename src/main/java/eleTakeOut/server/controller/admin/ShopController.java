@@ -4,6 +4,7 @@ import eleTakeOut.common.result.PageResult;
 import eleTakeOut.common.result.Result;
 import eleTakeOut.pojo.dto.ShopDTO;
 import eleTakeOut.pojo.dto.ShopPageQueryDTO;
+import eleTakeOut.pojo.entity.ShopVO;
 import eleTakeOut.server.service.ShopService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -45,9 +46,26 @@ public class ShopController {
         return Result.success();
     }
 
+    /**
+     * 查询店铺信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @Operation(summary = "查询店铺信息")
+    public Result<ShopVO> getById(@PathVariable Long id){
+        log.info("查询店铺信息:{}",id);
+        ShopVO shopVO = shopService.getById(id);
+        return Result.success(shopVO);
+    }
 
-
-
+    @PutMapping("/{id}")
+    @Operation(summary = "修改店铺信息")
+    public Result updateShop(@PathVariable Long id,@RequestBody ShopDTO shopDTO){
+        log.info("修改店铺信息:{}",id);
+        shopService.update(id,shopDTO);
+        return Result.success();
+    }
 
 
 
