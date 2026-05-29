@@ -1,0 +1,14 @@
+package eleTakeOut.server.service;
+
+import eleTakeOut.pojo.vo.AddressVO;
+
+import java.util.List;
+
+public interface AddressService {
+    /**
+     * 查询用户地址列表
+     * @param id
+     * @return
+     */
+    List<AddressVO> getAddress(Long id);
+}
