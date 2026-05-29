@@ -2,6 +2,7 @@ package eleTakeOut.server.service.serviceImpl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import eleTakeOut.common.exception.BaseException;
 import eleTakeOut.common.result.PageResult;
 import eleTakeOut.pojo.dto.ShopDTO;
 import eleTakeOut.pojo.dto.ShopPageQueryDTO;
@@ -75,5 +76,18 @@ public class ShopServiceImpl implements ShopService {
         BeanUtils.copyProperties(shopDTO,shop);
         shop.setId(id);
         shopMapper.updateById(shop);
+    }
+
+    /**
+     * 删除
+     * @param id
+     */
+    @Override
+    public void deleteById(Long id) {
+        Shop shop = shopMapper.selectById(id);
+        if(shop.getStatus() == 1){
+            throw new BaseException("不可删除营业状态中的店铺，若要删除请先将状态改为非营业");
+        }
+        shopMapper.deleteById(shop);
     }
 }

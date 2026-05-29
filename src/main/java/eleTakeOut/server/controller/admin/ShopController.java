@@ -59,6 +59,12 @@ public class ShopController {
         return Result.success(shopVO);
     }
 
+    /**
+     * 修改店铺信息
+     * @param id
+     * @param shopDTO
+     * @return
+     */
     @PutMapping("/{id}")
     @Operation(summary = "修改店铺信息")
     public Result updateShop(@PathVariable Long id,@RequestBody ShopDTO shopDTO){
@@ -67,7 +73,18 @@ public class ShopController {
         return Result.success();
     }
 
-
+    /**
+     * 删除店铺信息
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    @Operation(summary = "删除店铺信息")
+    public Result delete(@PathVariable Long id){
+        log.info("删除店铺信息:{}",id);
+        shopService.deleteById(id);
+        return Result.success();
+    }
 
 
 

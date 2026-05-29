@@ -31,4 +31,10 @@ public interface ShopService {
      * @param id
      */
     void update(Long id,ShopDTO shopDTO);
+
+    /**
+     * 删除店铺
+     * @param id
+     */
+    void deleteById(Long id);
 }
