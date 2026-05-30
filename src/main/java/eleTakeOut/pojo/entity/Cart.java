@@ -22,6 +22,8 @@ public class Cart {
 
     private Long dishId;
 
+    private Long shopId;
+
     private Integer number;
 
     private Double amount;
