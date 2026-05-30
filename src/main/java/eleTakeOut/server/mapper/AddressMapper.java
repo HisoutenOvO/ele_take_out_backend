@@ -5,6 +5,7 @@ import eleTakeOut.pojo.entity.Address;
 import eleTakeOut.pojo.vo.AddressVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -17,4 +18,10 @@ public interface AddressMapper extends BaseMapper<Address> {
      */
     @Select("select * from address where user_id = #{userId}")
     List<AddressVO> getAddressListByUserId(Long userId);
+
+    /**
+     * 将所有地址默认值全设为0
+     */
+    @Update("update address set is_default = 0")
+    void changeDefault();
 }

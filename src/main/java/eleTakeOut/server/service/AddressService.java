@@ -30,4 +30,10 @@ public interface AddressService {
      * @param addressDTO
      */
     void update(AddressDTO addressDTO,Long id);
+
+    /**
+     * 删除地址
+     * @param id
+     */
+    void delete(Long id);
 }

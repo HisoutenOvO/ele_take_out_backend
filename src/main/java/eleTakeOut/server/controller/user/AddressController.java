@@ -68,4 +68,16 @@ public class AddressController {
         addressService.update(addressDTO,id);
         return Result.success();
     }
+
+    /**
+     * 删除地址
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    @Operation(summary = "删除地址")
+    public Result delete(@PathVariable Long id){
+        log.info("删除地址:{}",id);
+        addressService.delete(id);
+        return Result.success();
+    }
 }

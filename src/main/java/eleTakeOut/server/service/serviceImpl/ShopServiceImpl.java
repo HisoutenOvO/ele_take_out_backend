@@ -10,11 +10,13 @@ import eleTakeOut.pojo.entity.Shop;
 import eleTakeOut.pojo.entity.ShopVO;
 import eleTakeOut.pojo.vo.CategoryVO;
 import eleTakeOut.server.mapper.CategoryMapper;
+import eleTakeOut.server.mapper.DishMapper;
 import eleTakeOut.server.mapper.ShopMapper;
 import eleTakeOut.server.service.ShopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +25,7 @@ import java.util.List;
 public class ShopServiceImpl implements ShopService {
     private final ShopMapper shopMapper;
     private final CategoryMapper categoryMapper;
+    private final DishMapper dishMapper;
 
     /**
      * 店铺分页查询
@@ -80,16 +83,20 @@ public class ShopServiceImpl implements ShopService {
     }
 
     /**
-     * 删除
+     * 删除店铺
      * @param id
      */
+    @Transactional
     @Override
     public void deleteById(Long id) {
         Shop shop = shopMapper.selectById(id);
         if(shop.getStatus() == 1){
             throw new BaseException("不可删除营业状态中的店铺，若要删除请先将状态改为非营业");
         }
+        //删除店铺后的级联删除相关分类和菜品，使用事务管理
         shopMapper.deleteById(shop);
+        categoryMapper.deleteByShopId(id);
+        dishMapper.deleteByShopId(id);
     }
 
     /**
