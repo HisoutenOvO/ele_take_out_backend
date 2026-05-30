@@ -23,8 +23,6 @@ public class AddressServiceImpl implements AddressService {
      */
     @Override
     public List<AddressVO> getAddress() {
-        //TODO 暂时把用户id设为1，登录功能实现后清除该语句
-        BaseContext.setCurrentUserId(1L);
         return addressMapper.getAddressListByUserId(BaseContext.getCurrentUserId());
     }
 

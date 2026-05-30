@@ -1,15 +1,16 @@
 package eleTakeOut.server.service.serviceImpl;
 
-
 import eleTakeOut.common.exception.BaseException;
 import eleTakeOut.common.properties.JwtProperties;
 import eleTakeOut.common.utils.JwtUtils;
 import eleTakeOut.pojo.dto.LoginDTO;
-import eleTakeOut.pojo.entity.Admin;
+import eleTakeOut.pojo.dto.UserRegisterDTO;
+import eleTakeOut.pojo.entity.User;
 import eleTakeOut.pojo.vo.LoginVO;
-import eleTakeOut.server.mapper.AdminMapper;
-import eleTakeOut.server.service.AdminService;
+import eleTakeOut.server.mapper.UserMapper;
+import eleTakeOut.server.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -18,41 +19,49 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class AdminServiceImpl implements AdminService {
-    private final AdminMapper adminMapper;
+public class UserServiceImpl implements UserService {
+    private final UserMapper userMapper;
     private final JwtProperties jwtProperties;
 
     /**
-     * 管理员登录
+     * 用户登录
      * @param loginDTO
      * @return
      */
     @Override
     public LoginVO login(LoginDTO loginDTO) {
-        String username = loginDTO.getUsername();
+        String username = loginDTO.getUsername();;
         String password = loginDTO.getPassword();
 
-        Admin admin = adminMapper.getByUserName(username);
-        if(admin == null){
+        User user = userMapper.getByUsername(username);
+        if(user == null){
             throw new BaseException("用户不存在！");
         }
-        String psw = admin.getPassword();
+        String psw = user.getPassword();
         //对密码进行md5加密后与数据库比对
         password = DigestUtils.md5DigestAsHex(password.getBytes());
-        if(!admin.getPassword().equals(password)){
+        if(!user.getPassword().equals(password)){
             throw new BaseException("用户名或密码错误！");
         }
         //若登录成功，则返回登录信息
-        //创建token
         Map<String,Object> claims = new HashMap<>();
-        claims.put("id",admin.getId());
-        claims.put("username",admin.getUsername());
+        claims.put("id",user.getId());
+        claims.put("username",user.getUsername());
         String token = JwtUtils.createJwt(jwtProperties.getSecretKey(), jwtProperties.getTtl(), claims);
+        return new LoginVO(user.getId(),user.getUsername(),token);
+    }
 
-        LoginVO loginVO = new LoginVO();
-        loginVO.setToken(token);
-        loginVO.setUsername(admin.getUsername());
-        loginVO.setId(admin.getId());
-        return loginVO;
+    /**
+     * 用户注册
+     * @param userRegisterDTO
+     */
+    @Override
+    public void register(UserRegisterDTO userRegisterDTO) {
+        String password = userRegisterDTO.getPassword();
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
+        User user = new User();
+        BeanUtils.copyProperties(userRegisterDTO,user);
+        user.setPassword(password);
+        userMapper.insert(user);
     }
 }

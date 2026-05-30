@@ -22,7 +22,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         log.info("开始注册自定义拦截器");
         registry.addInterceptor(jwtInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/managers/login")
+                .excludePathPatterns("/user/login","/user/register","/admin/login")
                 .excludePathPatterns("/doc.html")
                 .excludePathPatterns("/swagger-ui.html")
                 .excludePathPatterns("/swagger-ui/**")
