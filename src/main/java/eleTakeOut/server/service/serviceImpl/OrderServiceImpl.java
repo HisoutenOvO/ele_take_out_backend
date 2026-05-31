@@ -2,11 +2,8 @@ package eleTakeOut.server.service.serviceImpl;
 
 
 import eleTakeOut.common.context.BaseContext;
-import eleTakeOut.common.exception.BaseException;
 import eleTakeOut.pojo.dto.OrderSubmitDTO;
-import eleTakeOut.pojo.entity.Address;
-import eleTakeOut.pojo.entity.Cart;
-import eleTakeOut.pojo.entity.Shop;
+import eleTakeOut.pojo.entity.*;
 import eleTakeOut.pojo.vo.OrderSubmitVO;
 import eleTakeOut.pojo.vo.OrderVO;
 import eleTakeOut.server.mapper.AddressMapper;
@@ -16,9 +13,11 @@ import eleTakeOut.server.mapper.ShopMapper;
 import eleTakeOut.server.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -49,6 +48,7 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
+    @Transactional
     public OrderSubmitVO submit(OrderSubmitDTO orderSubmitDTO) {
         Long shopId = orderSubmitDTO.getShopId();
         Long addressId = orderSubmitDTO.getAddressId();
@@ -67,12 +67,40 @@ public class OrderServiceImpl implements OrderService {
             totalPrice += cart.getAmount() * cart.getNumber();
         }
         //生成订单号: 当前时间 + 用户id
-        String orderId = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")) + BaseContext.getCurrentUserId();
-        //先在订单表里新建一个只有订单号的订单，方便接下来的新增订单
-        orderMapper.justAddBasic(orderId,BaseContext.getCurrentUserId(),shopId);
+        String number = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")) + BaseContext.getCurrentUserId();
+        //新增订单
+        Orders orders = Orders.builder()
+                .number(number)
+                .actualPayment(totalPrice + packingFee + deliveryFee - AccountFee)
+                .addressId(addressId)
+                .packingFee(packingFee)
+                .deliveryFee(deliveryFee)
+                .shopId(shopId)
+                .userId(BaseContext.getCurrentUserId())
+                .totalPrice(totalPrice)
+                .status("待支付")
+                .build();
+        orderMapper.insert(orders);
+        //补全OrderDetail表
+        List<OrderDetail> orderDetailList = new ArrayList<>();
+        for (Cart cart : cartList) {
+            OrderDetail orderDetail = OrderDetail.builder()
+                    .name(cart.getName())
+                    .image(cart.getImage())
+                    .amount(cart.getAmount())
+                    .dishId(cart.getDishId())
+                    .number(cart.getNumber())
+                    .orderId(orders.getId())
+                    .build();
+            orderDetailList.add(orderDetail);
+        }
+        orderMapper.insertOrderDetailList(orderDetailList);
+        //回显订单id
+        Long orderId = orders.getId();
         //封装进OrderSubmitVO里，用builder简化代码
         return OrderSubmitVO.builder()
                 .orderId(orderId)
+                .number(number)
                 .shopName(shopName)
                 .notice(notice)
                 .address(address)
@@ -82,5 +110,18 @@ public class OrderServiceImpl implements OrderService {
                 .totalPrice(totalPrice)
                 .actualPayment(totalPrice + packingFee + deliveryFee - AccountFee)
                 .build();
+    }
+
+    /**
+     * 支付订单
+     * @param id
+     * @param payMethod
+     */
+    @Override
+    public void payment(Long id, Integer payMethod) {
+        Orders orders = orderMapper.selectById(id);
+        orders.setPayMethod(payMethod);
+        orders.setStatus("已支付");
+        orderMapper.updateById(orders);
     }
 }

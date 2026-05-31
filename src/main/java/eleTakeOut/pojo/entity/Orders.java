@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Orders {
 
     @TableId(type = IdType.AUTO)
@@ -35,6 +37,8 @@ public class Orders {
     private Double deliveryFee;
 
     private Double packingFee;
+
+    private Integer payMethod;
 
     private Double actualPayment;//实付金额=总价-优惠（优惠是前端固定的金额）
 

@@ -20,4 +20,11 @@ public interface OrderService {
      * @return
      */
     OrderSubmitVO submit(OrderSubmitDTO orderSubmitDTO);
+
+    /**
+     * 支付订单
+     * @param id
+     * @param payMethod
+     */
+    void payment(Long id, Integer payMethod);
 }

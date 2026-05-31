@@ -44,4 +44,16 @@ public class OrdersController {
         OrderSubmitVO ordersSubmitVO = orderService.submit(orderSubmitDTO);
         return Result.success(ordersSubmitVO);
     }
+
+    /**
+     * 支付订单
+     * @return
+     */
+    @PostMapping("/pay/{id}")
+    @Operation(summary = "支付订单")
+    public Result payment(@RequestParam Integer payMethod,@PathVariable Long id){
+        log.info("支付订单");
+        orderService.payment(id,payMethod);
+        return Result.success();
+    }
 }
