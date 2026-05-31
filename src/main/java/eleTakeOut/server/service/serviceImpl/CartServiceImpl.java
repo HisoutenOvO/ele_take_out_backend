@@ -56,4 +56,22 @@ public class CartServiceImpl implements CartService {
             cartMapper.updateById(cart);
         }
     }
+
+    /**
+     * 删除购物车
+     * @param cartDTO
+     */
+    @Override
+    public void delete(CartDTO cartDTO) {
+        //先判断购物车中该商品数量是否为1
+        Cart cart = cartMapper.getByDishIdAndUserId(cartDTO.getDishId(), BaseContext.getCurrentUserId());
+        if(cart.getNumber() != 1){
+            //直接减1
+            cart.setNumber(cart.getNumber() - 1);
+            cartMapper.updateById(cart);
+        }else {
+            //否则直接删除
+            cartMapper.deleteById(cart);
+        }
+    }
 }

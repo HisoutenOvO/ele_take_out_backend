@@ -17,4 +17,10 @@ public interface CartService {
      * @param cartDTO
      */
     void add(CartDTO cartDTO);
+
+    /**
+     * 删除购物车
+     * @param cartDTO
+     */
+    void delete(CartDTO cartDTO);
 }

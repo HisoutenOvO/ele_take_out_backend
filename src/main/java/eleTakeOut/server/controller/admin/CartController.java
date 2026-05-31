@@ -44,4 +44,17 @@ public class CartController {
         cartService.add(cartDTO);
         return Result.success();
     }
+
+    /**
+     * 删除购物车
+     * @param cartDTO
+     * @return
+     */
+    @DeleteMapping
+    @Operation(summary = "删除购物车")
+    public Result deleteCart(@RequestBody CartDTO cartDTO){
+        log.info("删除购物车");
+        cartService.delete(cartDTO);
+        return Result.success();
+    }
 }
