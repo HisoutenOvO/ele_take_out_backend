@@ -39,6 +39,6 @@ public interface ShopMapper extends BaseMapper<Shop> {
      * @param shopName
      * @return
      */
-    @Select("select * from shop where shop_name = #{shopName}")
+    @Select("select * from shop where name = #{shopName}")
     Shop getByShopName(String shopName);
 }

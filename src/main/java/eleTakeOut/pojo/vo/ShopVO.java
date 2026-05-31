@@ -20,8 +20,6 @@ public class ShopVO {
 
     private String name;
 
-    private String password;//md5
-
     private Double rating;
 
     private Long monthlySales;

@@ -1,17 +1,16 @@
 package eleTakeOut.server.controller.shop;
 
+import eleTakeOut.common.context.BaseContext;
 import eleTakeOut.common.result.Result;
 import eleTakeOut.pojo.dto.LoginDTO;
+import eleTakeOut.pojo.entity.ShopVO;
 import eleTakeOut.pojo.vo.LoginVO;
 import eleTakeOut.server.service.ShopService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("shopShopController")
 @RequestMapping("/shop")
@@ -21,11 +20,28 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShopController {
     private final ShopService shopService;
 
+    /**
+     * 店铺登录
+     * @param loginDTO
+     * @return
+     */
     @PostMapping("/login")
     @Operation(summary = "店铺登录")
     public Result<LoginVO> login(@RequestBody LoginDTO loginDTO){
         log.info("店铺登录");
         LoginVO loginVO = shopService.login(loginDTO);
         return Result.success(loginVO);
+    }
+
+    /**
+     * 获取店铺信息
+     * @return
+     */
+    @GetMapping("/info")
+    @Operation(summary = "获取店铺信息")
+    public Result<ShopVO> getInfo(){
+        log.info("获取店铺信息:{}", BaseContext.getCurrentShopId());
+        ShopVO shopVO = shopService.getById(BaseContext.getCurrentShopId());
+        return Result.success(shopVO);
     }
 }
