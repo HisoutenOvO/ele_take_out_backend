@@ -1,5 +1,6 @@
 package eleTakeOut.server.service;
 
+import eleTakeOut.pojo.dto.CartDTO;
 import eleTakeOut.pojo.vo.CartVO;
 
 import java.util.List;
@@ -10,4 +11,10 @@ public interface CartService {
      * @return
      */
     List<CartVO> list(Long id);
+
+    /**
+     * 添加购物车
+     * @param cartDTO
+     */
+    void add(CartDTO cartDTO);
 }

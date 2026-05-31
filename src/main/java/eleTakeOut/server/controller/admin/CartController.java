@@ -1,6 +1,7 @@
 package eleTakeOut.server.controller.admin;
 
 import eleTakeOut.common.result.Result;
+import eleTakeOut.pojo.dto.CartDTO;
 import eleTakeOut.pojo.vo.CartVO;
 import eleTakeOut.server.service.CartService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,5 +31,17 @@ public class CartController {
         log.info("获取购物车列表");
         List<CartVO> cartVOList = cartService.list(id);
         return Result.success(cartVOList);
+    }
+
+    /**
+     * 添加购物车
+     * @return
+     */
+    @PostMapping
+    @Operation(summary = "添加购物车")
+    public Result addCart(@RequestBody CartDTO cartDTO){
+        log.info("添加购物车");
+        cartService.add(cartDTO);
+        return Result.success();
     }
 }

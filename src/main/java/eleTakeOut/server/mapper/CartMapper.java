@@ -17,4 +17,13 @@ public interface CartMapper extends BaseMapper<Cart> {
      */
     @Select("select * from cart where shop_id = #{shopId}")
     List<CartVO> selectCartByShopId(Long shopId);
+
+    /**
+     * 根据菜品id和用户id查询购物车
+     * @param dishId
+     * @param userId
+     * @return
+     */
+    @Select("select * from cart where dish_id = #{dishId} and user_id = #{userId}")
+    Cart getByDishIdAndUserId(Long dishId, Long userId);
 }
