@@ -57,12 +57,12 @@ public class OrderServiceImpl implements OrderService {
         String shopName = shop.getName();
         String notice = shop.getNotice();
         //最后获取购物车的菜品信息
-        List<Cart> cartList = cartMapper.getByDishIdAndUserIdAndShopId(shopId,BaseContext.getCurrentUserId(),shopId);
+        List<Cart> cartList = cartMapper.getByDishIdAndUserIdAndShopId(null,BaseContext.getCurrentUserId(),shopId);
         Double deliveryFee = shop.getDeliveryFee();
-        Double packingFee = shop.getPackingFee();
+        Double packingFee = (double)1;
         Double totalPrice = 0.0;
         for (Cart cart : cartList) {
-            totalPrice += cart.getAmount();
+            totalPrice += cart.getAmount() * cart.getNumber();
         }
         //封装进OrderSubmitVO里，用builder简化代码
         return OrderSubmitVO.builder()

@@ -36,8 +36,6 @@ public class Shop {
 
     private Double deliveryFee;
 
-    private Double packingFee;
-
     private Integer campus;
 
     private String special;
