@@ -24,6 +24,6 @@ public interface CartMapper extends BaseMapper<Cart> {
      * @param userId
      * @return
      */
-    @Select("select * from cart where dish_id = #{dishId} and user_id = #{userId}")
-    Cart getByDishIdAndUserId(Long dishId, Long userId);
+    List<Cart> getByDishIdAndUserIdAndShopId(Long dishId, Long userId,Long shopId);
+
 }

@@ -25,4 +25,12 @@ public interface ShopMapper extends BaseMapper<Shop> {
      * @return
      */
     List<ShopVO> getShopList(String keywords);
+
+    /**
+     * 根据id查询
+     * @param id
+     * @return
+     */
+    @Select("select * from shop where id = #{id}")
+    Shop getById(Long id);
 }

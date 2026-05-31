@@ -36,7 +36,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public void add(CartDTO cartDTO) {
         //先判断购物车中是否有该商品，如果有则数量加一，如果没有则添加
-        Cart cart = cartMapper.getByDishIdAndUserId(cartDTO.getDishId(), BaseContext.getCurrentUserId());
+        Cart cart = cartMapper.getByDishIdAndUserIdAndShopId(cartDTO.getDishId(), BaseContext.getCurrentUserId(),cartDTO.getShopId()).get(0);
         if(cart == null){
             //没有该商品，则创建该商品
             cart = new Cart();
@@ -64,7 +64,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public void delete(CartDTO cartDTO) {
         //先判断购物车中该商品数量是否为1
-        Cart cart = cartMapper.getByDishIdAndUserId(cartDTO.getDishId(), BaseContext.getCurrentUserId());
+        Cart cart = cartMapper.getByDishIdAndUserIdAndShopId(cartDTO.getDishId(), BaseContext.getCurrentUserId(),cartDTO.getShopId()).get(0);
         if(cart.getNumber() != 1){
             //直接减1
             cart.setNumber(cart.getNumber() - 1);

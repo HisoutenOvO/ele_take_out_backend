@@ -24,4 +24,12 @@ public interface AddressMapper extends BaseMapper<Address> {
      */
     @Update("update address set is_default = 0")
     void changeDefault();
+
+    /**
+     * 根据地址id查询地址
+     * @param id,userId
+     * @return
+     */
+    @Select("select * from address where id = #{id} and user_id = #{userId}")
+    Address getByIdAndUserId(Long id,Long userId);
 }

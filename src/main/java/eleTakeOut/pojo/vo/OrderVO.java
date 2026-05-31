@@ -1,9 +1,5 @@
-package eleTakeOut.pojo.entity;
+package eleTakeOut.pojo.vo;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,10 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
-
-    @TableId(type = IdType.AUTO)
-    private Long id;
+public class OrderVO {
 
     private String number;//订单号
 
@@ -38,8 +31,6 @@ public class Order {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
-
 
 }

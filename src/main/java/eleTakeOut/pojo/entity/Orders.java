@@ -15,47 +15,33 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Shop {
+public class Orders {
 
     @TableId(type = IdType.AUTO)
     private Long id;
 
-    private String name;
+    private String number;//订单号
 
-    private String password;//md5
+    private Long userId;
 
-    private Double rating;
+    private Long shopId;
 
-    private Long monthlySales;
+    private Long addressId;
 
-    private Integer deliveryTime;
+    private String status;//状态(待支付/已支付/配送中/已完成/已取消/已退款)
 
-    private String distance;
-
-    private Double minPrice;
+    private Double totalPrice;
 
     private Double deliveryFee;
 
     private Double packingFee;
 
-    private Integer campus;
-
-    private String special;
-
-    private String image;
-
-    private String notice;
-
-    private Integer status;
+    private Double actualPayment;//实付金额=总价-优惠（优惠是前端固定的金额）
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
 
 }

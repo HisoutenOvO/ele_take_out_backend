@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CartVO {
 
-    private Long id;
-
     private Long dishId;
 
     private Long shopId;
