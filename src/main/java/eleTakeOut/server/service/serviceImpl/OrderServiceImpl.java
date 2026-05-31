@@ -1,5 +1,6 @@
 package eleTakeOut.server.service.serviceImpl;
 
+
 import eleTakeOut.common.context.BaseContext;
 import eleTakeOut.common.exception.BaseException;
 import eleTakeOut.pojo.dto.OrderSubmitDTO;
@@ -16,7 +17,8 @@ import eleTakeOut.server.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -64,8 +66,13 @@ public class OrderServiceImpl implements OrderService {
         for (Cart cart : cartList) {
             totalPrice += cart.getAmount() * cart.getNumber();
         }
+        //生成订单号: 当前时间 + 用户id
+        String orderId = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")) + BaseContext.getCurrentUserId();
+        //先在订单表里新建一个只有订单号的订单，方便接下来的新增订单
+        orderMapper.justAddBasic(orderId,BaseContext.getCurrentUserId(),shopId);
         //封装进OrderSubmitVO里，用builder简化代码
         return OrderSubmitVO.builder()
+                .orderId(orderId)
                 .shopName(shopName)
                 .notice(notice)
                 .address(address)

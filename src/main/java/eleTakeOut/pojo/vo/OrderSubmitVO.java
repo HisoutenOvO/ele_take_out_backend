@@ -16,6 +16,8 @@ import java.util.List;
 @Builder
 public class OrderSubmitVO {
 
+    private String orderId;
+
     private String notice;
 
     private String shopName;

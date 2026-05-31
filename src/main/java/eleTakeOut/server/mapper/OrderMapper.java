@@ -17,4 +17,11 @@ public interface OrderMapper extends BaseMapper<Orders> {
      */
     @Select("select * from orders where user_id = #{userId}")
     List<OrderVO> getListByUserId(Long userId);
+
+    /**
+     * 仅添加基本信息占位
+     * @param orderId
+     */
+    @Select("insert into orders(number,user_id,shop_id) values(#{orderId},#{userId},#{shopId})")
+    void justAddBasic(String orderId,Long userId,Long shopId);
 }
