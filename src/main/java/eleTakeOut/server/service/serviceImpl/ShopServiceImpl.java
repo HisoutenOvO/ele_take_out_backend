@@ -3,12 +3,16 @@ package eleTakeOut.server.service.serviceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import eleTakeOut.common.exception.BaseException;
+import eleTakeOut.common.properties.JwtProperties;
 import eleTakeOut.common.result.PageResult;
+import eleTakeOut.common.utils.JwtUtils;
+import eleTakeOut.pojo.dto.LoginDTO;
 import eleTakeOut.pojo.dto.ShopDTO;
 import eleTakeOut.pojo.dto.ShopPageQueryDTO;
 import eleTakeOut.pojo.entity.Shop;
 import eleTakeOut.pojo.entity.ShopVO;
 import eleTakeOut.pojo.vo.CategoryVO;
+import eleTakeOut.pojo.vo.LoginVO;
 import eleTakeOut.server.mapper.CategoryMapper;
 import eleTakeOut.server.mapper.DishMapper;
 import eleTakeOut.server.mapper.ShopMapper;
@@ -17,8 +21,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.DigestUtils;
 
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +34,7 @@ public class ShopServiceImpl implements ShopService {
     private final ShopMapper shopMapper;
     private final CategoryMapper categoryMapper;
     private final DishMapper dishMapper;
+    private final JwtProperties jwtProperties;
 
     /**
      * 店铺分页查询
@@ -118,5 +127,35 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public List<CategoryVO> getCategories(Long id) {
         return categoryMapper.getCategoriesByShopId(id);
+    }
+
+    /**
+     * 店铺登录
+     * @param loginDTO
+     * @return
+     */
+    @Override
+    public LoginVO login(LoginDTO loginDTO) {
+        String shopName = loginDTO.getUsername();
+        String password = loginDTO.getPassword();
+        // 查询
+        Shop shop = shopMapper.getByShopName(shopName);
+        if(shop == null){
+            throw new BaseException("商家不存在");
+        }
+        password = DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8));
+        if(!password.equals(shop.getPassword())){
+            throw new BaseException("商家名或密码错误");
+        }
+        Map<String,Object> claims = new HashMap<>();
+        claims.put("id",shop.getId());
+        claims.put("shop_name",shopName);
+        String token = JwtUtils.createJwt(jwtProperties.getSecretKey(), jwtProperties.getTtl(), claims);
+
+        LoginVO loginVO = new LoginVO();
+        loginVO.setToken(token);
+        loginVO.setUsername(shopName);
+        loginVO.setId(shop.getId());
+        return loginVO;
     }
 }

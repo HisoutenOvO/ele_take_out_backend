@@ -1,10 +1,12 @@
 package eleTakeOut.server.service;
 
 import eleTakeOut.common.result.PageResult;
+import eleTakeOut.pojo.dto.LoginDTO;
 import eleTakeOut.pojo.dto.ShopDTO;
 import eleTakeOut.pojo.dto.ShopPageQueryDTO;
 import eleTakeOut.pojo.entity.ShopVO;
 import eleTakeOut.pojo.vo.CategoryVO;
+import eleTakeOut.pojo.vo.LoginVO;
 
 import java.util.List;
 
@@ -54,4 +56,11 @@ public interface ShopService {
      * @return
      */
     List<CategoryVO> getCategories(Long id);
+
+    /**
+     * 商家登录
+     * @param loginDTO
+     * @return
+     */
+    LoginVO login(LoginDTO loginDTO);
 }
