@@ -27,4 +27,11 @@ public interface OrderService {
      * @param payMethod
      */
     void payment(Long id, Integer payMethod);
+
+    /**
+     * 获取订单详情
+     * @param id
+     * @return
+     */
+    OrderVO getDetail(Long id);
 }

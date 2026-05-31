@@ -56,4 +56,16 @@ public class OrdersController {
         orderService.payment(id,payMethod);
         return Result.success();
     }
+
+    /**
+     * 获取订单详情
+     * @return
+     */
+    @GetMapping("/{id}")
+    @Operation(summary = "获取订单详情")
+    public Result<OrderVO> getDetail(@PathVariable Long id){
+        log.info("获取订单详情");
+        OrderVO orderVO = orderService.getDetail(id);
+        return Result.success(orderVO);
+    }
 }

@@ -26,4 +26,11 @@ public interface CartMapper extends BaseMapper<Cart> {
      */
     List<Cart> getByDishIdAndUserIdAndShopId(Long dishId, Long userId,Long shopId);
 
+    /**
+     * 清空购物车
+     * @param currentUserId
+     * @param shopId
+     */
+    @Select("delete from cart where user_id = #{currentUserId} and shop_id = #{shopId}")
+    void clearByUserIdAndShopId(Long currentUserId, Long shopId);
 }

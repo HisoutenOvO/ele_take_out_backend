@@ -12,6 +12,7 @@ import eleTakeOut.server.mapper.OrderMapper;
 import eleTakeOut.server.mapper.ShopMapper;
 import eleTakeOut.server.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -97,6 +98,8 @@ public class OrderServiceImpl implements OrderService {
         orderMapper.insertOrderDetailList(orderDetailList);
         //回显订单id
         Long orderId = orders.getId();
+        //下单成功后清空购物车
+        cartMapper.clearByUserIdAndShopId(BaseContext.getCurrentUserId(),shopId);
         //封装进OrderSubmitVO里，用builder简化代码
         return OrderSubmitVO.builder()
                 .orderId(orderId)
@@ -123,5 +126,23 @@ public class OrderServiceImpl implements OrderService {
         orders.setPayMethod(payMethod);
         orders.setStatus("已支付");
         orderMapper.updateById(orders);
+    }
+
+    /**
+     * 获取订单详情
+     * @param id
+     * @return
+     */
+    @Override
+    public OrderVO getDetail(Long id) {
+        Orders orders = orderMapper.selectById(id);
+        List<OrderDetail> orderDetailList = orderMapper.getDetailListByOrderId(id);
+        OrderVO orderVO = new OrderVO();
+        BeanUtils.copyProperties(orders,orderVO);
+        //把detail封装进orderVO
+        orderVO.setOrderDetailList(orderDetailList);
+        orderVO.setQuantity(orderDetailList.size());
+        orderVO.setShopName(shopMapper.getById(orders.getShopId()).getName());
+        return orderVO;
     }
 }

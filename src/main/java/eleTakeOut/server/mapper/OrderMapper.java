@@ -24,4 +24,12 @@ public interface OrderMapper extends BaseMapper<Orders> {
      * @param orderDetailList
      */
     void insertOrderDetailList(List<OrderDetail> orderDetailList);
+
+    /**
+     * 根据订单id查询订单详情
+     * @param orderId
+     * @return
+     */
+    @Select("select * from order_detail where order_id = #{orderId}")
+    List<OrderDetail> getDetailListByOrderId(Long orderId);
 }
