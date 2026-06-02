@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController("shopShopController")
-@RequestMapping("/shop/shop")
+@RequestMapping("/shop/shops")
 @Tag(name = "店铺-店铺管理")
 @Slf4j
 @RequiredArgsConstructor
