@@ -1,14 +1,11 @@
 package eleTakeOut.server.controller.shop;
 
 import eleTakeOut.common.context.BaseContext;
-import eleTakeOut.common.result.PageResult;
 import eleTakeOut.common.result.Result;
-import eleTakeOut.pojo.dto.CategoryPageQueryDTO;
 import eleTakeOut.pojo.dto.LoginDTO;
 import eleTakeOut.pojo.dto.ShopUpdateSelfDTO;
 import eleTakeOut.pojo.vo.LoginVO;
 import eleTakeOut.pojo.vo.ShopSelfVO;
-import eleTakeOut.server.service.CategoryService;
 import eleTakeOut.server.service.ShopService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,14 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController("shopShopController")
-@RequestMapping("/shop")
+@RequestMapping("/shop/shop")
 @Tag(name = "店铺-店铺管理")
 @Slf4j
 @RequiredArgsConstructor
 public class ShopController {
     private final ShopService shopService;
-    private final CategoryService categoryService;
-
     /**
      * 店铺登录
      * @param loginDTO
@@ -64,15 +59,4 @@ public class ShopController {
         return Result.success();
     }
 
-    /**
-     * 店铺分页查询分类
-     * @return
-     */
-    @GetMapping("/categories")
-    @Operation(summary = "店铺分页查询分类")
-    public Result<PageResult> getCategory(CategoryPageQueryDTO categoryPageQueryDTO){
-        log.info("店铺分类查询:{}", BaseContext.getCurrentShopId());
-        PageResult pageResult =  categoryService.getList(categoryPageQueryDTO);
-        return Result.success(pageResult);
-    }
 }

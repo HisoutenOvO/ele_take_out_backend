@@ -15,8 +15,6 @@ public class CategoryVO {
 
     private Long id;
 
-    private Long shopId;
-
     private String name;
 
     private String emoji;
