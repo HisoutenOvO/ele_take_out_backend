@@ -2,9 +2,11 @@ package eleTakeOut.server.controller.admin;
 
 import eleTakeOut.common.result.PageResult;
 import eleTakeOut.common.result.Result;
-import eleTakeOut.pojo.dto.ShopDTO;
+import eleTakeOut.pojo.dto.ShopAddDTO;
 import eleTakeOut.pojo.dto.ShopPageQueryDTO;
-import eleTakeOut.pojo.entity.ShopVO;
+import eleTakeOut.pojo.dto.ShopUpdateDTO;
+
+import eleTakeOut.pojo.vo.ShopSelfVO;
 import eleTakeOut.server.service.ShopService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,14 +37,14 @@ public class ShopController {
 
     /**
      * 新增店铺
-     * @param shopDTO
+     * @param shopAddDTO
      * @return
      */
     @PostMapping
     @Operation(summary = "新增店铺")
-    public Result add(@RequestBody ShopDTO shopDTO){
+    public Result add(@RequestBody ShopAddDTO shopAddDTO){
         log.info("新增店铺");
-        shopService.add(shopDTO);
+        shopService.add(shopAddDTO);
         return Result.success();
     }
 
@@ -53,23 +55,23 @@ public class ShopController {
      */
     @GetMapping("/{id}")
     @Operation(summary = "查询店铺信息")
-    public Result<ShopVO> getById(@PathVariable Long id){
+    public Result<ShopSelfVO> getById(@PathVariable Long id){
         log.info("查询店铺信息:{}",id);
-        ShopVO shopVO = shopService.getById(id);
+        ShopSelfVO shopVO = shopService.getByIdSelf(id);
         return Result.success(shopVO);
     }
 
     /**
      * 修改店铺信息
      * @param id
-     * @param shopDTO
+     * @param shopUpdateDTO
      * @return
      */
     @PutMapping("/{id}")
     @Operation(summary = "修改店铺信息")
-    public Result updateShop(@PathVariable Long id,@RequestBody ShopDTO shopDTO){
+    public Result updateShop(@PathVariable Long id,@RequestBody ShopUpdateDTO shopUpdateDTO){
         log.info("修改店铺信息:{}",id);
-        shopService.update(id,shopDTO);
+        shopService.update(id,shopUpdateDTO);
         return Result.success();
     }
 

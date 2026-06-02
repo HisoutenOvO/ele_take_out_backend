@@ -7,12 +7,15 @@ import eleTakeOut.common.properties.JwtProperties;
 import eleTakeOut.common.result.PageResult;
 import eleTakeOut.common.utils.JwtUtils;
 import eleTakeOut.pojo.dto.LoginDTO;
-import eleTakeOut.pojo.dto.ShopDTO;
+import eleTakeOut.pojo.dto.ShopAddDTO;
 import eleTakeOut.pojo.dto.ShopPageQueryDTO;
+import eleTakeOut.pojo.dto.ShopUpdateDTO;
+import eleTakeOut.pojo.dto.ShopUpdateSelfDTO;
 import eleTakeOut.pojo.entity.Shop;
-import eleTakeOut.pojo.entity.ShopVO;
+import eleTakeOut.pojo.vo.ShopVO;
 import eleTakeOut.pojo.vo.CategoryVO;
 import eleTakeOut.pojo.vo.LoginVO;
+import eleTakeOut.pojo.vo.ShopSelfVO;
 import eleTakeOut.server.mapper.CategoryMapper;
 import eleTakeOut.server.mapper.DishMapper;
 import eleTakeOut.server.mapper.ShopMapper;
@@ -55,17 +58,29 @@ public class ShopServiceImpl implements ShopService {
 
     /**
      * 新增店铺
-     * @param shopDTO
+     * @param shopAddDTO
      */
     @Override
-    public void add(ShopDTO shopDTO) {
+    public void add(ShopAddDTO shopAddDTO) {
         Shop shop = new Shop();
-        BeanUtils.copyProperties(shopDTO,shop);
+        BeanUtils.copyProperties(shopAddDTO,shop);
         // 默认为未营业
         shop.setStatus(0);
         shopMapper.insert(shop);
     }
 
+    /**
+     * 查询店铺
+     * @param id
+     * @return
+     */
+    @Override
+    public ShopSelfVO getByIdSelf(Long id) {
+        Shop shop = shopMapper.selectById(id);
+        ShopSelfVO shopSelfVO = new ShopSelfVO();
+        BeanUtils.copyProperties(shop,shopSelfVO);
+        return shopSelfVO;
+    }
     /**
      * 查询店铺
      * @param id
@@ -84,9 +99,9 @@ public class ShopServiceImpl implements ShopService {
      * @param id
      */
     @Override
-    public void update(Long id,ShopDTO shopDTO) {
+    public void update(Long id, ShopUpdateDTO shopUpdateDTO) {
         Shop shop = shopMapper.selectById(id);
-        BeanUtils.copyProperties(shopDTO,shop);
+        BeanUtils.copyProperties(shopUpdateDTO,shop);
         shop.setId(id);
         shopMapper.updateById(shop);
     }
@@ -157,5 +172,18 @@ public class ShopServiceImpl implements ShopService {
         loginVO.setUsername(shopName);
         loginVO.setId(shop.getId());
         return loginVO;
+    }
+
+    /**
+     * 店铺修改自己店铺信息
+     * @param id
+     * @param shopUpdateSelfDTO
+     */
+    @Override
+    public void updateBySelf(Long id, ShopUpdateSelfDTO shopUpdateSelfDTO) {
+        Shop shop = shopMapper.selectById(id);
+        BeanUtils.copyProperties(shopUpdateSelfDTO,shop);
+        shop.setId(id);
+        shopMapper.updateById(shop);
     }
 }

@@ -1,10 +1,9 @@
 package eleTakeOut.server.service;
 
 import eleTakeOut.common.result.PageResult;
-import eleTakeOut.pojo.dto.LoginDTO;
-import eleTakeOut.pojo.dto.ShopDTO;
-import eleTakeOut.pojo.dto.ShopPageQueryDTO;
-import eleTakeOut.pojo.entity.ShopVO;
+import eleTakeOut.pojo.dto.*;
+import eleTakeOut.pojo.vo.ShopSelfVO;
+import eleTakeOut.pojo.vo.ShopVO;
 import eleTakeOut.pojo.vo.CategoryVO;
 import eleTakeOut.pojo.vo.LoginVO;
 
@@ -20,9 +19,9 @@ public interface ShopService {
 
     /**
      * 新增店铺
-     * @param shopDTO
+     * @param shopAddDTO
      */
-    void add(ShopDTO shopDTO);
+    void add(ShopAddDTO shopAddDTO);
 
     /**
      * 根据id查询店铺信息
@@ -35,7 +34,7 @@ public interface ShopService {
      * 修改店铺信息
      * @param id
      */
-    void update(Long id,ShopDTO shopDTO);
+    void update(Long id, ShopUpdateDTO shopUpdateDTO);
 
     /**
      * 删除店铺
@@ -63,4 +62,18 @@ public interface ShopService {
      * @return
      */
     LoginVO login(LoginDTO loginDTO);
+
+    /**
+     * 修改店铺信息
+     * @param currentShopId
+     * @param shopUpdateSelfDTO
+     */
+    void updateBySelf(Long currentShopId, ShopUpdateSelfDTO shopUpdateSelfDTO);
+
+    /**
+     * 店铺获取店铺自己信息
+     * @param currentShopId
+     * @return
+     */
+    ShopSelfVO getByIdSelf(Long currentShopId);
 }

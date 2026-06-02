@@ -2,6 +2,7 @@ package eleTakeOut.server.service;
 
 
 import eleTakeOut.pojo.dto.OrderSubmitDTO;
+import eleTakeOut.pojo.vo.OrderDetailVO;
 import eleTakeOut.pojo.vo.OrderSubmitVO;
 import eleTakeOut.pojo.vo.OrderVO;
 
@@ -33,5 +34,5 @@ public interface OrderService {
      * @param id
      * @return
      */
-    OrderVO getDetail(Long id);
+    OrderDetailVO getDetail(Long id);
 }

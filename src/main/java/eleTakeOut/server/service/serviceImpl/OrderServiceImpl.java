@@ -4,8 +4,7 @@ package eleTakeOut.server.service.serviceImpl;
 import eleTakeOut.common.context.BaseContext;
 import eleTakeOut.pojo.dto.OrderSubmitDTO;
 import eleTakeOut.pojo.entity.*;
-import eleTakeOut.pojo.vo.OrderSubmitVO;
-import eleTakeOut.pojo.vo.OrderVO;
+import eleTakeOut.pojo.vo.*;
 import eleTakeOut.server.mapper.AddressMapper;
 import eleTakeOut.server.mapper.CartMapper;
 import eleTakeOut.server.mapper.OrderMapper;
@@ -55,12 +54,20 @@ public class OrderServiceImpl implements OrderService {
         Long addressId = orderSubmitDTO.getAddressId();
         //先获取地址信息
         Address address = addressMapper.getByIdAndUserId(addressId,BaseContext.getCurrentUserId());
+        OrderAddressVO addressVO = new OrderAddressVO();
+        BeanUtils.copyProperties(address,addressVO);
         //再获取店铺信息
         Shop shop = shopMapper.getById(shopId);
         String shopName = shop.getName();
         String notice = shop.getNotice();
         //最后获取购物车的菜品信息
         List<Cart> cartList = cartMapper.getByDishIdAndUserIdAndShopId(null,BaseContext.getCurrentUserId(),shopId);
+        List<OrderDishVO> dishVOList = new ArrayList<>();
+        for (Cart cart : cartList) {
+            OrderDishVO vo = new OrderDishVO();
+            BeanUtils.copyProperties(cart,vo);
+            dishVOList.add(vo);
+        }
         Double deliveryFee = shop.getDeliveryFee();
         Double packingFee = (double)1;
         Double totalPrice = 0.0;
@@ -106,8 +113,8 @@ public class OrderServiceImpl implements OrderService {
                 .number(number)
                 .shopName(shopName)
                 .notice(notice)
-                .address(address)
-                .dishList(cartList)
+                .address(addressVO)
+                .dishList(dishVOList)
                 .deliveryFee(deliveryFee)
                 .packingFee(packingFee)
                 .totalPrice(totalPrice)
@@ -134,15 +141,15 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
-    public OrderVO getDetail(Long id) {
+    public OrderDetailVO getDetail(Long id) {
         Orders orders = orderMapper.selectById(id);
         List<OrderDetail> orderDetailList = orderMapper.getDetailListByOrderId(id);
-        OrderVO orderVO = new OrderVO();
-        BeanUtils.copyProperties(orders,orderVO);
+        OrderDetailVO orderDetailVO = new OrderDetailVO();
+        BeanUtils.copyProperties(orders,orderDetailVO);
         //把detail封装进orderVO
-        orderVO.setOrderDetailList(orderDetailList);
-        orderVO.setQuantity(orderDetailList.size());
-        orderVO.setShopName(shopMapper.getById(orders.getShopId()).getName());
-        return orderVO;
+        orderDetailVO.setOrderDetailList(orderDetailList);
+        orderDetailVO.setQuantity(orderDetailList.size());
+        orderDetailVO.setShopName(shopMapper.getById(orders.getShopId()).getName());
+        return orderDetailVO;
     }
 }

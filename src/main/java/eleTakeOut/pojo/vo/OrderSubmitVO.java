@@ -32,8 +32,8 @@ public class OrderSubmitVO {
 
     private Double actualPayment;
 
-    private List<Cart> dishList;
+    private List<OrderDishVO> dishList;
 
-    private Address address;
+    private OrderAddressVO address;
 
 }

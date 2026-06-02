@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AddressVO {
 
+    private Long id;
+
     private Long userId;
 
     private String tag;

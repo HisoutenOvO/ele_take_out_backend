@@ -1,24 +1,17 @@
-package eleTakeOut.pojo.vo;
+package eleTakeOut.pojo.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShopVO {
-
-    private Long id;
+public class ShopAddDTO {
 
     private String name;
 
-    private Double rating;
-
-    private Long monthlySales;
+    private String password;//md5
 
     private Integer deliveryTime;
 

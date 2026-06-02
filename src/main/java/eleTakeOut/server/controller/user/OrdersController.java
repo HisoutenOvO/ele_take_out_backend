@@ -2,6 +2,7 @@ package eleTakeOut.server.controller.user;
 
 import eleTakeOut.common.result.Result;
 import eleTakeOut.pojo.dto.OrderSubmitDTO;
+import eleTakeOut.pojo.vo.OrderDetailVO;
 import eleTakeOut.pojo.vo.OrderSubmitVO;
 import eleTakeOut.pojo.vo.OrderVO;
 import eleTakeOut.server.service.OrderService;
@@ -63,9 +64,9 @@ public class OrdersController {
      */
     @GetMapping("/{id}")
     @Operation(summary = "获取订单详情")
-    public Result<OrderVO> getDetail(@PathVariable Long id){
+    public Result<OrderDetailVO> getDetail(@PathVariable Long id){
         log.info("获取订单详情");
-        OrderVO orderVO = orderService.getDetail(id);
+        OrderDetailVO orderVO = orderService.getDetail(id);
         return Result.success(orderVO);
     }
 }

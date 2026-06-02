@@ -3,7 +3,7 @@ package eleTakeOut.server.controller.user;
 
 import eleTakeOut.common.result.Result;
 import eleTakeOut.pojo.dto.ShopPageQueryDTO;
-import eleTakeOut.pojo.entity.ShopVO;
+import eleTakeOut.pojo.vo.ShopVO;
 import eleTakeOut.pojo.vo.CategoryVO;
 import eleTakeOut.server.service.ShopService;
 import io.swagger.v3.oas.annotations.Operation;

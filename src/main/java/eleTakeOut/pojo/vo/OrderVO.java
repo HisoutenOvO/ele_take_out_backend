@@ -42,6 +42,4 @@ public class OrderVO {
 
     private String shopName;
 
-    List<OrderDetail> orderDetailList;
-
 }

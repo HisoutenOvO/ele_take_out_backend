@@ -64,7 +64,7 @@ public class AddressController {
     @PutMapping("/{id}")
     @Operation(summary = "修改地址")
     public Result update(@RequestBody AddressDTO addressDTO,@PathVariable Long id){
-        log.info("修改地址id:{}",addressDTO.getId());
+        log.info("修改地址id:{}",id);
         addressService.update(addressDTO,id);
         return Result.success();
     }

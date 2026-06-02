@@ -3,8 +3,9 @@ package eleTakeOut.server.controller.shop;
 import eleTakeOut.common.context.BaseContext;
 import eleTakeOut.common.result.Result;
 import eleTakeOut.pojo.dto.LoginDTO;
-import eleTakeOut.pojo.entity.ShopVO;
+import eleTakeOut.pojo.dto.ShopUpdateSelfDTO;
 import eleTakeOut.pojo.vo.LoginVO;
+import eleTakeOut.pojo.vo.ShopSelfVO;
 import eleTakeOut.server.service.ShopService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -39,9 +40,21 @@ public class ShopController {
      */
     @GetMapping("/info")
     @Operation(summary = "获取店铺信息")
-    public Result<ShopVO> getInfo(){
+    public Result<ShopSelfVO> getInfo(){
         log.info("获取店铺信息:{}", BaseContext.getCurrentShopId());
-        ShopVO shopVO = shopService.getById(BaseContext.getCurrentShopId());
+        ShopSelfVO shopVO = shopService.getByIdSelf(BaseContext.getCurrentShopId());
         return Result.success(shopVO);
+    }
+
+    /**
+     * 修改店铺信息
+     * @return
+     */
+    @PutMapping("/info")
+    @Operation(summary = "修改店铺信息")
+    public Result updateInfo(@RequestBody ShopUpdateSelfDTO shopUpdateSelfDTO){
+        log.info("修改店铺信息:{}", BaseContext.getCurrentShopId());
+        shopService.updateBySelf(BaseContext.getCurrentShopId(),shopUpdateSelfDTO);
+        return Result.success();
     }
 }
