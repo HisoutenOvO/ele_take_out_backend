@@ -7,4 +7,15 @@
             (#{item.name},#{item.image},#{item.dishId},#{item.number},#{item.amount},#{item.orderId})
         </foreach>
     </insert>
+    <select id="pageQuery" resultType="eleTakeOut.pojo.vo.OrderListVO">
+        select o.id,o.number,u.username,u.phone,o.status,o.total_price,o.actual_payment,o.create_time
+        from orders o left join user u on o.user_id = u.id
+        <where>
+            <if test="status != null">
+                and o.status = #{status}
+            </if>
+            and shop_id = #{shopId}
+        </where>
+        order by create_time desc
+    </select>
 </mapper>

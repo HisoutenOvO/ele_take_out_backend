@@ -40,4 +40,10 @@ public interface DishService {
      * @param id
      */
     void update(DishSaveDTO dishSaveDTO, Long id);
+
+    /**
+     * 删除菜品
+     * @param id
+     */
+    void delete(Long id);
 }

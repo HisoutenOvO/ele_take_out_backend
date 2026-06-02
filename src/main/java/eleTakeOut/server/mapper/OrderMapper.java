@@ -1,8 +1,11 @@
 package eleTakeOut.server.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.github.pagehelper.Page;
+import eleTakeOut.pojo.dto.OrderPageQueryDTO;
 import eleTakeOut.pojo.entity.OrderDetail;
 import eleTakeOut.pojo.entity.Orders;
+import eleTakeOut.pojo.vo.OrderListVO;
 import eleTakeOut.pojo.vo.OrderVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -32,4 +35,11 @@ public interface OrderMapper extends BaseMapper<Orders> {
      */
     @Select("select * from order_detail where order_id = #{orderId}")
     List<OrderDetail> getDetailListByOrderId(Long orderId);
+
+    /**
+     * 订单列表
+     * @param orderPageQueryDTO
+     * @return
+     */
+    Page<OrderListVO> pageQuery(OrderPageQueryDTO orderPageQueryDTO);
 }

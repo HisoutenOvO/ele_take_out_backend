@@ -1,7 +1,11 @@
 package eleTakeOut.server.service.serviceImpl;
 
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import eleTakeOut.common.context.BaseContext;
+import eleTakeOut.common.result.PageResult;
+import eleTakeOut.pojo.dto.OrderPageQueryDTO;
 import eleTakeOut.pojo.dto.OrderSubmitDTO;
 import eleTakeOut.pojo.entity.*;
 import eleTakeOut.pojo.vo.*;
@@ -151,5 +155,20 @@ public class OrderServiceImpl implements OrderService {
         orderDetailVO.setQuantity(orderDetailList.size());
         orderDetailVO.setShopName(shopMapper.getById(orders.getShopId()).getName());
         return orderDetailVO;
+    }
+
+    /**
+     * 订单列表查询
+     * @param orderPageQueryDTO
+     * @return
+     */
+    @Override
+    public PageResult pageQuery(OrderPageQueryDTO orderPageQueryDTO) {
+        PageHelper.startPage(orderPageQueryDTO.getPage(),orderPageQueryDTO.getPageSize());
+        orderPageQueryDTO.setShopId(BaseContext.getCurrentShopId());
+        Page<OrderListVO> page = orderMapper.pageQuery(orderPageQueryDTO);
+        Long total = page.getTotal();
+        List<OrderListVO> records = page.getResult();
+        return new PageResult(total,records);
     }
 }

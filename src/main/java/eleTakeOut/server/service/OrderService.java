@@ -1,6 +1,8 @@
 package eleTakeOut.server.service;
 
 
+import eleTakeOut.common.result.PageResult;
+import eleTakeOut.pojo.dto.OrderPageQueryDTO;
 import eleTakeOut.pojo.dto.OrderSubmitDTO;
 import eleTakeOut.pojo.vo.OrderDetailVO;
 import eleTakeOut.pojo.vo.OrderSubmitVO;
@@ -35,4 +37,11 @@ public interface OrderService {
      * @return
      */
     OrderDetailVO getDetail(Long id);
+
+    /**
+     * 订单列表
+     * @param orderPageQueryDTO
+     * @return
+     */
+    PageResult pageQuery(OrderPageQueryDTO orderPageQueryDTO);
 }

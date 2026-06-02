@@ -19,7 +19,7 @@ import java.util.List;
 @Tag(name = "用户-订单管理")
 @Slf4j
 @RequiredArgsConstructor
-public class OrdersController {
+public class OrderController {
     private final OrderService orderService;
 
     /**

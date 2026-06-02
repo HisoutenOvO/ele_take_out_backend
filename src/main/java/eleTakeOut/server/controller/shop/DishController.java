@@ -70,4 +70,17 @@ public class DishController {
         dishService.update(dishSaveDTO,id);
         return Result.success();
     }
+
+    /**
+     * 删除菜品
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    @Operation(summary = "删除菜品")
+    public Result delete(@PathVariable Long id){
+        log.info("删除菜品：{}",id);
+        dishService.delete(id);
+        return Result.success();
+    }
 }

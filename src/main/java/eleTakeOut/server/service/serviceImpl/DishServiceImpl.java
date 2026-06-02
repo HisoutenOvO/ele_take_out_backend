@@ -90,4 +90,13 @@ public class DishServiceImpl implements DishService {
         dish.setShopId(BaseContext.getCurrentShopId());
         dishMapper.updateById(dish);
     }
+
+    /**
+     * 删除菜品
+     * @param id
+     */
+    @Override
+    public void delete(Long id) {
+        dishMapper.deleteById(id);
+    }
 }
