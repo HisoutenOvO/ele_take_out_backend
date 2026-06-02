@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CategoryVO {
 
-    private Long categoryId;
+    private Long id;
 
     private Long shopId;
 

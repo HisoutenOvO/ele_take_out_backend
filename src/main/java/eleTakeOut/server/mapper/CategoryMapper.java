@@ -1,6 +1,8 @@
 package eleTakeOut.server.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.github.pagehelper.Page;
+import eleTakeOut.pojo.dto.CategoryPageQueryDTO;
 import eleTakeOut.pojo.entity.Category;
 import eleTakeOut.pojo.vo.CategoryVO;
 import org.apache.ibatis.annotations.Delete;
@@ -25,4 +27,11 @@ public interface CategoryMapper extends BaseMapper<Category>{
      */
     @Delete("delete from category where shop_id = #{shopId}")
     void deleteByShopId(Long shopId);
+
+    /**
+     * 分页查询分类
+     * @param categoryPageQueryDTO,shopId
+     * @return
+     */
+    Page<CategoryVO> getCategoryList(CategoryPageQueryDTO categoryPageQueryDTO,Long shopId);
 }
