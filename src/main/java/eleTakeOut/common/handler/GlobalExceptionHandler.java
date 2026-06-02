@@ -1,6 +1,5 @@
 package eleTakeOut.common.handler;
 
-
 import eleTakeOut.common.exception.BaseException;
 import eleTakeOut.common.result.Result;
 import lombok.extern.slf4j.Slf4j;
@@ -44,5 +43,6 @@ public class GlobalExceptionHandler {
             return Result.error(errValue + " 已存在");
         }
         return Result.error("未知错误");
+
     }
 }

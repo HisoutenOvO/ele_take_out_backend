@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.pagehelper.Page;
 import eleTakeOut.pojo.dto.CategoryPageQueryDTO;
 import eleTakeOut.pojo.entity.Category;
+import eleTakeOut.pojo.vo.CategoryDetailVO;
 import eleTakeOut.pojo.vo.CategoryVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
@@ -33,5 +34,5 @@ public interface CategoryMapper extends BaseMapper<Category>{
      * @param categoryPageQueryDTO,shopId
      * @return
      */
-    Page<CategoryVO> getCategoryList(CategoryPageQueryDTO categoryPageQueryDTO,Long shopId);
+    Page<CategoryDetailVO> getCategoryList(CategoryPageQueryDTO categoryPageQueryDTO);
 }

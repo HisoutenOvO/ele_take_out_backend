@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CategoryPageQueryDTO {
 
+    public Long ShopId;
+
     private String keyword;
 
     private Integer page;

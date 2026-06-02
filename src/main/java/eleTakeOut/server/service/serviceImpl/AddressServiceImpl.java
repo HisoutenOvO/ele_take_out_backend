@@ -61,7 +61,7 @@ public class AddressServiceImpl implements AddressService {
      */
     @Override
     public void update(AddressDTO addressDTO,Long id) {
-        Address address = addressMapper.selectById(id);
+        Address address = new Address();
         BeanUtils.copyProperties(addressDTO,address);
         //如果设置了此地址为默认地址，则将其他地址的默认地址设置为0
         if(address.getIsDefault() == 1){

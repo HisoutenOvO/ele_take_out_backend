@@ -95,12 +95,12 @@ public class ShopServiceImpl implements ShopService {
     }
 
     /**
-     * 修改店铺
+     * 管理员修改店铺
      * @param id
      */
     @Override
     public void update(Long id, ShopUpdateDTO shopUpdateDTO) {
-        Shop shop = shopMapper.selectById(id);
+        Shop shop = new Shop();
         BeanUtils.copyProperties(shopUpdateDTO,shop);
         shop.setId(id);
         shopMapper.updateById(shop);
@@ -181,7 +181,7 @@ public class ShopServiceImpl implements ShopService {
      */
     @Override
     public void updateBySelf(Long id, ShopUpdateSelfDTO shopUpdateSelfDTO) {
-        Shop shop = shopMapper.selectById(id);
+        Shop shop = new Shop();
         BeanUtils.copyProperties(shopUpdateSelfDTO,shop);
         shop.setId(id);
         shopMapper.updateById(shop);
