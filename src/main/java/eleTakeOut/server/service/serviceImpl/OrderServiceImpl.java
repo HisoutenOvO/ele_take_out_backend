@@ -9,10 +9,7 @@ import eleTakeOut.pojo.dto.OrderPageQueryDTO;
 import eleTakeOut.pojo.dto.OrderSubmitDTO;
 import eleTakeOut.pojo.entity.*;
 import eleTakeOut.pojo.vo.*;
-import eleTakeOut.server.mapper.AddressMapper;
-import eleTakeOut.server.mapper.CartMapper;
-import eleTakeOut.server.mapper.OrderMapper;
-import eleTakeOut.server.mapper.ShopMapper;
+import eleTakeOut.server.mapper.*;
 import eleTakeOut.server.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -36,6 +33,7 @@ public class OrderServiceImpl implements OrderService {
     private final AddressMapper addressMapper;
     private final ShopMapper shopMapper;
     private final CartMapper cartMapper;
+    private final UserMapper userMapper;
 
     /**
      * 获取订单列表
@@ -113,7 +111,7 @@ public class OrderServiceImpl implements OrderService {
         cartMapper.clearByUserIdAndShopId(BaseContext.getCurrentUserId(),shopId);
         //封装进OrderSubmitVO里，用builder简化代码
         return OrderSubmitVO.builder()
-                .orderId(orderId)
+                .id(orderId)
                 .number(number)
                 .shopName(shopName)
                 .notice(notice)
@@ -170,5 +168,36 @@ public class OrderServiceImpl implements OrderService {
         Long total = page.getTotal();
         List<OrderListVO> records = page.getResult();
         return new PageResult(total,records);
+    }
+
+    /**
+     * 商家端查询详情
+     * @param id
+     * @return
+     */
+    @Override
+    public OrderShopDetailVO getByIdWithShop(Long id) {
+        OrderShopDetailVO orderShopDetailVO = new OrderShopDetailVO();
+        Orders orders = orderMapper.selectById(id);
+        BeanUtils.copyProperties(orders,orderShopDetailVO);
+        orderShopDetailVO.setId(id);
+        User user = userMapper.selectById(orders.getUserId());
+        String username = user.getUsername();
+        String phone = user.getPhone();
+        Address address = addressMapper.selectById(orders.getAddressId());
+        OrderAddressVO orderAddressVO = new OrderAddressVO();
+        BeanUtils.copyProperties(address,orderAddressVO);
+        List<OrderDishVO> dishVOList = new ArrayList<>();
+        List<OrderDetail> orderDetailList = orderMapper.getDetailListByOrderId(id);
+        for (OrderDetail orderDetail : orderDetailList) {
+            OrderDishVO orderDishVO = new OrderDishVO();
+            BeanUtils.copyProperties(orderDetail,orderDishVO);
+            dishVOList.add(orderDishVO);
+        }
+        orderShopDetailVO.setDishList(dishVOList);
+        orderShopDetailVO.setUsername(username);
+        orderShopDetailVO.setPhone(phone);
+        orderShopDetailVO.setAddress(orderAddressVO);
+        return orderShopDetailVO;
     }
 }

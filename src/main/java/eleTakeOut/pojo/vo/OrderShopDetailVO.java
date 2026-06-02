@@ -1,8 +1,6 @@
 package eleTakeOut.pojo.vo;
 
-import eleTakeOut.pojo.entity.Address;
-import eleTakeOut.pojo.entity.Cart;
-import eleTakeOut.pojo.entity.Dish;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,13 +12,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderSubmitVO {
+public class OrderShopDetailVO {
 
     private Long id;
 
-    private String notice;
+    private String username;
 
-    private String shopName;
+    private String phone;
 
     private String number;
 
@@ -35,6 +33,8 @@ public class OrderSubmitVO {
     private List<OrderDishVO> dishList;
 
     private OrderAddressVO address;
+
+    private Integer payMethod;
 
     private String status;
 
