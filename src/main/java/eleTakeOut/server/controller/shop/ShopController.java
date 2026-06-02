@@ -3,6 +3,7 @@ package eleTakeOut.server.controller.shop;
 import eleTakeOut.common.context.BaseContext;
 import eleTakeOut.common.result.Result;
 import eleTakeOut.pojo.dto.LoginDTO;
+import eleTakeOut.pojo.dto.ShopDTO;
 import eleTakeOut.pojo.entity.ShopVO;
 import eleTakeOut.pojo.vo.LoginVO;
 import eleTakeOut.server.service.ShopService;
@@ -43,5 +44,17 @@ public class ShopController {
         log.info("获取店铺信息:{}", BaseContext.getCurrentShopId());
         ShopVO shopVO = shopService.getById(BaseContext.getCurrentShopId());
         return Result.success(shopVO);
+    }
+
+    /**
+     * 修改店铺信息
+     * @return
+     */
+    @PutMapping("/info")
+    @Operation(summary = "修改店铺信息")
+    public Result updateInfo(@RequestBody ShopDTO shopDTO){
+        log.info("修改店铺信息:{}", BaseContext.getCurrentShopId());
+        shopService.update(BaseContext.getCurrentShopId(),shopDTO);
+        return Result.success();
     }
 }
