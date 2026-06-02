@@ -1,33 +1,25 @@
-package eleTakeOut.pojo.vo;
+package eleTakeOut.pojo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DishVO {
-
-    private Long id;
-
-    private Long shopId;
-
-    private Long categoryId;
+public class DishSaveDTO {
 
     private String name;
 
+    private Long categoryId;
+
     private String description;
 
-    private String ingredients;//原料
+    private String ingredients;
 
-    private String serving;//份量
+    private String servings;
 
     private Double price;
 
     private String image;
-
-    private Integer monthlySales;
-
 }

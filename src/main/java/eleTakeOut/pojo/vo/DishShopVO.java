@@ -8,11 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DishVO {
+public class DishShopVO {
 
     private Long id;
-
-    private Long shopId;
 
     private Long categoryId;
 

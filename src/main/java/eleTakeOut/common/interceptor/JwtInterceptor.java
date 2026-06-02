@@ -41,6 +41,7 @@ public class JwtInterceptor implements HandlerInterceptor {
             //获取当前操作者的id
             Long id = Long.valueOf(claims.get("id").toString());
             //存放解析出来的id，用于后续登录等相关操作使用，注意不同的客户端存放不同id
+            log.info("校验完毕，id是{}",id);
             String url = request.getRequestURI();
             if (url.startsWith("/admin/")) {
                 BaseContext.setCurrentAdminId(id);

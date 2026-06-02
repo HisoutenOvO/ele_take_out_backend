@@ -1,10 +1,10 @@
 package eleTakeOut.server.service;
 
 import eleTakeOut.common.result.PageResult;
+import eleTakeOut.pojo.dto.DishSaveDTO;
 import eleTakeOut.pojo.dto.DishPageQueryDTO;
+import eleTakeOut.pojo.vo.DishShopVO;
 import eleTakeOut.pojo.vo.DishVO;
-
-import java.util.List;
 
 public interface DishService {
 
@@ -21,4 +21,23 @@ public interface DishService {
      * @return
      */
     PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+    /**
+     * 新增菜品
+     * @param dishSaveDTO
+     */
+    void add(DishSaveDTO dishSaveDTO);
+
+    /**
+     * 根据id查询菜品
+     * @param id
+     */
+    DishShopVO getById(Long id);
+
+    /**
+     * 修改菜品
+     * @param dishSaveDTO
+     * @param id
+     */
+    void update(DishSaveDTO dishSaveDTO, Long id);
 }
