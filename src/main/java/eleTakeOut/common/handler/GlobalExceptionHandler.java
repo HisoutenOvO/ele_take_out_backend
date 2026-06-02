@@ -27,25 +27,22 @@ public class GlobalExceptionHandler {
         return Result.error(e.getMessage());
     }
 
-    /**
-     * 捕获sql异常
-     * @param e
-     * @return
-     */
     @ExceptionHandler
     public Result sqlExceptionHandler(SQLIntegrityConstraintViolationException e){
-        //sql中报错重复的字段时会显示 Duplicate entry 'xxx' for key 'xxx'
         String message = e.getMessage();
-        //用string的contains方法判断是否是sql异常
         if(message.contains("Duplicate entry")){
-            //通过用空格作分隔符依次将字符串Duplicate entry 'xxx' for key 'xxx'获取到split里
             String[] split = message.split(" ");
-            //调用split[2]，即'xxx'和常量异常信息拼凑成异常信息
-            String errMessage = split[2] + "已存在";
-            return Result.error(errMessage);
-        }else{
-            //不是这个错误则返回未知错误
-            return Result.error("未知错误");
+            String errValue = split[2]; // '1-人气推荐' 或 'xxx'
+            // 去掉首尾的单引号
+            errValue = errValue.replace("'", "");
+            // 如果包含 '-'，说明是联合唯一索引的冲突
+            if(errValue.contains("-")){
+                // 提取名称部分（去掉前缀的 shopId-）
+                String name = errValue.substring(errValue.indexOf("-") + 1);
+                return Result.error(name + "已存在");
+            }
+            return Result.error(errValue + " 已存在");
         }
+        return Result.error("未知错误");
     }
 }

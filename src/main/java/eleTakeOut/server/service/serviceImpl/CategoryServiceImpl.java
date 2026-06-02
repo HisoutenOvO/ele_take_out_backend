@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import eleTakeOut.common.context.BaseContext;
 import eleTakeOut.common.result.PageResult;
+import eleTakeOut.pojo.dto.CategoryAddDTO;
 import eleTakeOut.pojo.dto.CategoryPageQueryDTO;
 import eleTakeOut.pojo.entity.Category;
 import eleTakeOut.pojo.vo.CategoryVO;
@@ -14,6 +15,7 @@ import eleTakeOut.server.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Service
@@ -43,5 +45,18 @@ public class CategoryServiceImpl implements CategoryService {
         Long total = page.getTotal();
         List<CategoryVO> categoryVOList = page.getResult();
         return new PageResult(total,categoryVOList);
+    }
+
+    /**
+     * 新增分类
+     * @param categoryAddDTO
+     */
+    @Override
+    public void add(CategoryAddDTO categoryAddDTO) {
+        Category category = new Category();
+        category.setName(categoryAddDTO.getName());
+        category.setEmoji(categoryAddDTO.getEmoji());
+        category.setShopId(BaseContext.getCurrentShopId());
+        categoryMapper.insert(category);
     }
 }

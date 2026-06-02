@@ -1,6 +1,7 @@
 package eleTakeOut.server.service;
 
 import eleTakeOut.common.result.PageResult;
+import eleTakeOut.pojo.dto.CategoryAddDTO;
 import eleTakeOut.pojo.dto.CategoryPageQueryDTO;
 import eleTakeOut.pojo.vo.CategoryVO;
 import eleTakeOut.pojo.vo.DishVO;
@@ -21,4 +22,10 @@ public interface CategoryService {
      * @return
      */
     PageResult getList(CategoryPageQueryDTO categoryPageQueryDTO);
+
+    /**
+     * 新增分类
+     * @param categoryAddDTO
+     */
+    void add(CategoryAddDTO categoryAddDTO);
 }
