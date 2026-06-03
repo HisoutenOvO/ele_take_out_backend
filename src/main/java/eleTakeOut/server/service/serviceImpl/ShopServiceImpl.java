@@ -12,10 +12,7 @@ import eleTakeOut.pojo.dto.ShopPageQueryDTO;
 import eleTakeOut.pojo.dto.ShopUpdateDTO;
 import eleTakeOut.pojo.dto.ShopUpdateSelfDTO;
 import eleTakeOut.pojo.entity.Shop;
-import eleTakeOut.pojo.vo.ShopVO;
-import eleTakeOut.pojo.vo.CategoryVO;
-import eleTakeOut.pojo.vo.LoginVO;
-import eleTakeOut.pojo.vo.ShopSelfVO;
+import eleTakeOut.pojo.vo.*;
 import eleTakeOut.server.mapper.CategoryMapper;
 import eleTakeOut.server.mapper.DishMapper;
 import eleTakeOut.server.mapper.ShopMapper;
@@ -81,6 +78,20 @@ public class ShopServiceImpl implements ShopService {
         BeanUtils.copyProperties(shop,shopSelfVO);
         return shopSelfVO;
     }
+
+    /**
+     * 商家获取店铺信息
+     * @param id
+     * @return
+     */
+    @Override
+    public ShopAdminVO getByIdWithAdmin(Long id) {
+        Shop shop = shopMapper.selectById(id);
+        ShopAdminVO shopAdminVO = new ShopAdminVO();
+        BeanUtils.copyProperties(shop,shopAdminVO);
+        return shopAdminVO;
+    }
+
     /**
      * 查询店铺
      * @param id

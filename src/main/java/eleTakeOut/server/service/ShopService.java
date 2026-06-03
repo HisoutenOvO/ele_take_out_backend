@@ -2,10 +2,7 @@ package eleTakeOut.server.service;
 
 import eleTakeOut.common.result.PageResult;
 import eleTakeOut.pojo.dto.*;
-import eleTakeOut.pojo.vo.ShopSelfVO;
-import eleTakeOut.pojo.vo.ShopVO;
-import eleTakeOut.pojo.vo.CategoryVO;
-import eleTakeOut.pojo.vo.LoginVO;
+import eleTakeOut.pojo.vo.*;
 
 import java.util.List;
 
@@ -76,4 +73,11 @@ public interface ShopService {
      * @return
      */
     ShopSelfVO getByIdSelf(Long currentShopId);
+
+    /**
+     * 商家获取店铺信息
+     * @param id
+     * @return
+     */
+    ShopAdminVO getByIdWithAdmin(Long id);
 }
