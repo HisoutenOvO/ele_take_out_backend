@@ -11,7 +11,7 @@ public class DishPageQueryDTO {
 
     private Long shopId;
 
-    private Long categoryId;
+    private String categoryName;
 
     private String keyword;
 

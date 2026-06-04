@@ -6,6 +6,8 @@ import eleTakeOut.pojo.dto.DishPageQueryDTO;
 import eleTakeOut.pojo.vo.DishShopVO;
 import eleTakeOut.pojo.vo.DishVO;
 
+import java.util.List;
+
 public interface DishService {
 
     /**
@@ -43,7 +45,7 @@ public interface DishService {
 
     /**
      * 删除菜品
-     * @param id
+     * @param ids
      */
-    void delete(Long id);
+    void delete(List<Long> ids);
 }

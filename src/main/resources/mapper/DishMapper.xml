@@ -8,13 +8,16 @@
         </foreach>
     </delete>
     <select id="pageQuery" resultType="eleTakeOut.pojo.vo.DishDetailVO">
-        select * from dish
+        select d.*,c.name categoryName
+        from dish d left join category c on d.category_id = c.id
         <where>
             <if test="keyword != null and keyword != ''">
                 and name like concat('%',#{keyword},'%')
             </if>
-            and shop_id = #{shopId}
-            and category_id = #{categoryId}
+            <if test="categoryName != null and categoryName != ''">
+                and c.name like concat('%',#{categoryName},'%')
+            </if>
+            and d.shop_id = #{shopId}
         </where>
     </select>
 </mapper>

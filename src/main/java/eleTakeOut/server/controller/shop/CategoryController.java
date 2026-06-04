@@ -25,7 +25,7 @@ public class CategoryController {
      * 店铺分页查询分类
      * @return
      */
-    @GetMapping
+    @GetMapping("/list")
     @Operation(summary = "店铺分页查询分类")
     public Result<PageResult> getCategory(CategoryPageQueryDTO categoryPageQueryDTO){
         log.info("店铺分类查询:{}", BaseContext.getCurrentShopId());

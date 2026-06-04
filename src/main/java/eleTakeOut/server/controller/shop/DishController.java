@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController("shopDishController")
 @RequestMapping("/shop/dishes")
 @Tag(name = "店铺端-菜品管理")
@@ -26,9 +28,9 @@ public class DishController {
      * @param dishPageQueryDTO
      * @return
      */
-    @GetMapping
+    @GetMapping("/list")
     @Operation(summary = "菜品列表条件分页查询")
-    public Result<PageResult> pageQuery(@RequestBody DishPageQueryDTO dishPageQueryDTO){
+    public Result<PageResult> pageQuery( DishPageQueryDTO dishPageQueryDTO){
         log.info("菜品列表查询");
         PageResult pageResult = dishService.pageQuery(dishPageQueryDTO);
         return Result.success(pageResult);
@@ -73,14 +75,14 @@ public class DishController {
 
     /**
      * 删除菜品
-     * @param id
+     * @param ids
      * @return
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping
     @Operation(summary = "删除菜品")
-    public Result delete(@PathVariable Long id){
-        log.info("删除菜品：{}",id);
-        dishService.delete(id);
+    public Result delete(@RequestBody List<Long> ids){
+        log.info("删除菜品：{}",ids);
+        dishService.delete(ids);
         return Result.success();
     }
 }

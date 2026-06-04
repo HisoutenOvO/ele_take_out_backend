@@ -93,10 +93,10 @@ public class DishServiceImpl implements DishService {
 
     /**
      * 删除菜品
-     * @param id
+     * @param ids
      */
     @Override
-    public void delete(Long id) {
-        dishMapper.deleteById(id);
+    public void delete(List<Long> ids) {
+        dishMapper.deleteBatchIds(ids);
     }
 }

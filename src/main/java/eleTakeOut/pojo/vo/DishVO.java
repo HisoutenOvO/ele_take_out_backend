@@ -14,7 +14,7 @@ public class DishVO {
 
     private Long shopId;
 
-    private Long categoryId;
+    private String categoryName;
 
     private String name;
 
