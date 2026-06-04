@@ -19,4 +19,13 @@
         </where>
         order by update_time desc
     </select>
+    <select id="selectByIds" resultType="eleTakeOut.pojo.entity.Shop">
+        select * from shop
+        <where>
+            id in
+            <foreach collection="ids" open="(" close=")" separator="," item="id">
+                #{id}
+            </foreach>
+        </where>
+    </select>
 </mapper>

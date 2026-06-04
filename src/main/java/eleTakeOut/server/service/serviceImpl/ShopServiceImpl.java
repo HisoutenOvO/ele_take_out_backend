@@ -63,6 +63,11 @@ public class ShopServiceImpl implements ShopService {
         BeanUtils.copyProperties(shopAddDTO,shop);
         // 默认为未营业
         shop.setStatus(0);
+        if(shopAddDTO.getPassword()!=null){
+            shopAddDTO.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes(StandardCharsets.UTF_8)));
+        }
+        shop.setPassword(DigestUtils.md5DigestAsHex(shopAddDTO.getPassword().getBytes(StandardCharsets.UTF_8)));
+        //设置查重
         shopMapper.insert(shop);
     }
 
@@ -119,19 +124,22 @@ public class ShopServiceImpl implements ShopService {
 
     /**
      * 删除店铺
-     * @param id
+     * @param ids
      */
     @Transactional
     @Override
-    public void deleteById(Long id) {
-        Shop shop = shopMapper.selectById(id);
-        if(shop.getStatus() == 1){
-            throw new BaseException("不可删除营业状态中的店铺，若要删除请先将状态改为非营业");
+    public void deleteByIds(List<Long> ids) {
+        List<Shop> shopList = shopMapper.selectByIds(ids);
+        for (Shop shop : shopList) {
+            if(shop.getStatus() == 1){
+                throw new BaseException("不可删除营业状态中的店铺，若要删除请先将状态改为非营业");
+            }
         }
+
         //删除店铺后的级联删除相关分类和菜品，使用事务管理
-        shopMapper.deleteById(shop);
-        categoryMapper.deleteByShopId(id);
-        dishMapper.deleteByShopId(id);
+        shopMapper.deleteBatchIds(ids);
+        categoryMapper.deleteByShopIds(ids);
+        dishMapper.deleteByShopIds(ids);
     }
 
     /**

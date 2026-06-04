@@ -35,9 +35,9 @@ public interface ShopService {
 
     /**
      * 删除店铺
-     * @param id
+     * @param ids
      */
-    void deleteById(Long id);
+    void deleteByIds(List<Long> ids);
 
     /**
      * 获取店铺列表

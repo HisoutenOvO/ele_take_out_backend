@@ -25,10 +25,9 @@ public interface DishMapper extends BaseMapper<Dish> {
 
     /**
      * 根据店铺id删除菜品
-     * @param shopId
+     * @param shopIds
      */
-    @Delete("delete from dish where shop_id = #{shopId}")
-    void deleteByShopId(Long shopId);
+    void deleteByShopIds(List<Long> shopIds);
 
     /**
      * 菜品条件分页查询

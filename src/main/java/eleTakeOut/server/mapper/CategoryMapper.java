@@ -24,10 +24,9 @@ public interface CategoryMapper extends BaseMapper<Category>{
 
     /**
      * 根据店铺id删除分类
-     * @param shopId
+     * @param shopIds
      */
-    @Delete("delete from category where shop_id = #{shopId}")
-    void deleteByShopId(Long shopId);
+    void deleteByShopIds(List<Long> shopIds);
 
     /**
      * 分页查询分类

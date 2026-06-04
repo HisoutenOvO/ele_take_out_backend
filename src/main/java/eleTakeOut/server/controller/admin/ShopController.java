@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController("adminShopController")
 @RequestMapping("/admin/shops")
 @Slf4j
@@ -78,14 +80,14 @@ public class ShopController {
 
     /**
      * 删除店铺信息
-     * @param id
+     * @param ids
      * @return
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping
     @Operation(summary = "删除店铺信息")
-    public Result delete(@PathVariable Long id){
-        log.info("删除店铺信息:{}",id);
-        shopService.deleteById(id);
+    public Result delete(@RequestBody List<Long> ids){
+        log.info("删除店铺信息:{}",ids);
+        shopService.deleteByIds(ids);
         return Result.success();
     }
 

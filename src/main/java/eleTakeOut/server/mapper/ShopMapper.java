@@ -41,4 +41,11 @@ public interface ShopMapper extends BaseMapper<Shop> {
      */
     @Select("select * from shop where name = #{shopName}")
     Shop getByShopName(String shopName);
+
+    /**
+     * 根据id们查询店铺
+     * @param ids
+     * @return
+     */
+    List<Shop> selectByIds(List<Long> ids);
 }
