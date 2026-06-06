@@ -6,11 +6,7 @@ import eleTakeOut.common.exception.BaseException;
 import eleTakeOut.common.properties.JwtProperties;
 import eleTakeOut.common.result.PageResult;
 import eleTakeOut.common.utils.JwtUtils;
-import eleTakeOut.pojo.dto.LoginDTO;
-import eleTakeOut.pojo.dto.ShopAddDTO;
-import eleTakeOut.pojo.dto.ShopPageQueryDTO;
-import eleTakeOut.pojo.dto.ShopUpdateDTO;
-import eleTakeOut.pojo.dto.ShopUpdateSelfDTO;
+import eleTakeOut.pojo.dto.*;
 import eleTakeOut.pojo.entity.Shop;
 import eleTakeOut.pojo.vo.*;
 import eleTakeOut.server.mapper.CategoryMapper;
@@ -95,6 +91,22 @@ public class ShopServiceImpl implements ShopService {
         ShopAdminVO shopAdminVO = new ShopAdminVO();
         BeanUtils.copyProperties(shop,shopAdminVO);
         return shopAdminVO;
+    }
+
+    /**
+     * 商家修改密码
+     * @param shopId
+     * @param dto
+     */
+    @Override
+    public void changePassword(Long shopId, ChangePasswordDTO dto) {
+        Shop shop = shopMapper.selectById(shopId);
+        String oldPasswordMd5 = DigestUtils.md5DigestAsHex(dto.getOldPassword().getBytes(StandardCharsets.UTF_8));
+        if (!oldPasswordMd5.equals(shop.getPassword())) {
+            throw new BaseException("旧密码错误");
+        }
+        shop.setPassword(DigestUtils.md5DigestAsHex(dto.getPassword().getBytes(StandardCharsets.UTF_8)));
+        shopMapper.updateById(shop);
     }
 
     /**

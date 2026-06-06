@@ -2,6 +2,7 @@ package eleTakeOut.server.controller.shop;
 
 import eleTakeOut.common.context.BaseContext;
 import eleTakeOut.common.result.Result;
+import eleTakeOut.pojo.dto.ChangePasswordDTO;
 import eleTakeOut.pojo.dto.LoginDTO;
 import eleTakeOut.pojo.dto.ShopUpdateSelfDTO;
 import eleTakeOut.pojo.vo.LoginVO;
@@ -59,4 +60,16 @@ public class ShopController {
         return Result.success();
     }
 
+    /**
+     * 商铺修改密码
+     * @param dto
+     * @return
+     */
+    @PutMapping("/changePassword")
+    @Operation(summary = "商家修改密码")
+    public Result changePassword(@RequestBody ChangePasswordDTO dto) {
+        log.info("商家修改密码");
+        shopService.changePassword(BaseContext.getCurrentShopId(), dto);
+        return Result.success();
+    }
 }

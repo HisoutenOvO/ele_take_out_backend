@@ -80,4 +80,11 @@ public interface ShopService {
      * @return
      */
     ShopAdminVO getByIdWithAdmin(Long id);
+
+    /**
+     * 商铺修改密码
+     * @param shopId
+     * @param dto
+     */
+    void changePassword(Long shopId, ChangePasswordDTO dto);
 }

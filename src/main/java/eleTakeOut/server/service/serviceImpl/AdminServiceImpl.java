@@ -4,6 +4,7 @@ package eleTakeOut.server.service.serviceImpl;
 import eleTakeOut.common.exception.BaseException;
 import eleTakeOut.common.properties.JwtProperties;
 import eleTakeOut.common.utils.JwtUtils;
+import eleTakeOut.pojo.dto.ChangePasswordDTO;
 import eleTakeOut.pojo.dto.LoginDTO;
 import eleTakeOut.pojo.entity.Admin;
 import eleTakeOut.pojo.vo.LoginVO;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,5 +56,21 @@ public class AdminServiceImpl implements AdminService {
         loginVO.setUsername(admin.getUsername());
         loginVO.setId(admin.getId());
         return loginVO;
+    }
+
+    /**
+     * 管理员修改密码
+     * @param
+     * @param dto
+     */
+    @Override
+    public void changePassword(Long adminId, ChangePasswordDTO dto) {
+        Admin admin = adminMapper.selectById(adminId);
+        String oldPasswordMd5 = DigestUtils.md5DigestAsHex(dto.getOldPassword().getBytes(StandardCharsets.UTF_8));
+        if (!oldPasswordMd5.equals(admin.getPassword())) {
+            throw new BaseException("旧密码错误");
+        }
+        admin.setPassword(DigestUtils.md5DigestAsHex(dto.getPassword().getBytes(StandardCharsets.UTF_8)));
+        adminMapper.updateById(admin);
     }
 }
