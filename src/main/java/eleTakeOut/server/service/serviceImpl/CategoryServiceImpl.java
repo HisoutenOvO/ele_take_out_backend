@@ -9,6 +9,7 @@ import eleTakeOut.pojo.dto.CategorySaveDTO;
 import eleTakeOut.pojo.dto.CategoryPageQueryDTO;
 import eleTakeOut.pojo.entity.Category;
 import eleTakeOut.pojo.vo.CategoryDetailVO;
+import eleTakeOut.pojo.vo.CategoryDishVO;
 import eleTakeOut.pojo.vo.CategoryVO;
 import eleTakeOut.pojo.vo.DishVO;
 import eleTakeOut.server.mapper.CategoryMapper;
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -103,5 +105,22 @@ public class CategoryServiceImpl implements CategoryService {
             throw new BaseException("该分类下关联其他菜品，请移除菜品后再删除该分类");
         }
         categoryMapper.deleteById(id);
+    }
+
+    /**
+     * 回显分类名称和id
+     * @return
+     */
+    @Override
+    public List<CategoryDishVO> getCategoryByDish() {
+        List<CategoryVO> categoriesByShopId = categoryMapper.getCategoriesByShopId(BaseContext.getCurrentShopId());
+        List<CategoryDishVO> categoryDishVOList = new ArrayList<>();
+        for(CategoryVO categoryVO:categoriesByShopId){
+            CategoryDishVO categoryDishVO = new CategoryDishVO();
+            categoryDishVO.setId(categoryVO.getId());
+            categoryDishVO.setName(categoryVO.getName());
+            categoryDishVOList.add(categoryDishVO);
+        }
+        return categoryDishVOList;
     }
 }

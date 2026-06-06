@@ -182,7 +182,7 @@ public class OrderServiceImpl implements OrderService {
         BeanUtils.copyProperties(orders,orderShopDetailVO);
         orderShopDetailVO.setId(id);
         User user = userMapper.selectById(orders.getUserId());
-        String username = user.getUsername();
+        String nickname = user.getNickname();
         String phone = user.getPhone();
         Address address = addressMapper.selectById(orders.getAddressId());
         OrderAddressVO orderAddressVO = new OrderAddressVO();
@@ -195,7 +195,7 @@ public class OrderServiceImpl implements OrderService {
             dishVOList.add(orderDishVO);
         }
         orderShopDetailVO.setDishList(dishVOList);
-        orderShopDetailVO.setUsername(username);
+        orderShopDetailVO.setNickname(nickname);
         orderShopDetailVO.setPhone(phone);
         orderShopDetailVO.setAddress(orderAddressVO);
         return orderShopDetailVO;

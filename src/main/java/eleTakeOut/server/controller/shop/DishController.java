@@ -78,9 +78,9 @@ public class DishController {
      * @param ids
      * @return
      */
-    @DeleteMapping
+    @DeleteMapping("/{ids}")
     @Operation(summary = "删除菜品")
-    public Result delete(@RequestBody List<Long> ids){
+    public Result delete(@PathVariable List<Long> ids){
         log.info("删除菜品：{}",ids);
         dishService.delete(ids);
         return Result.success();

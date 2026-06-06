@@ -5,6 +5,7 @@ import eleTakeOut.common.result.PageResult;
 import eleTakeOut.common.result.Result;
 import eleTakeOut.pojo.dto.CategorySaveDTO;
 import eleTakeOut.pojo.dto.CategoryPageQueryDTO;
+import eleTakeOut.pojo.vo.CategoryDishVO;
 import eleTakeOut.pojo.vo.CategoryVO;
 import eleTakeOut.server.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,6 +13,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController("shopCategoryController")
 @RequestMapping("/shop/categories")
@@ -81,5 +84,17 @@ public class CategoryController {
         log.info("删除分类:{}",id);
         categoryService.delete(id);
         return Result.success();
+    }
+
+    /**
+     * 回显分类名称和id
+     * @return
+     */
+    @GetMapping("/dish")
+    @Operation(summary = "回显分类名称和id")
+    public Result<List<CategoryDishVO>> getByDish(){
+        log.info("回显分类名称和id");
+        List<CategoryDishVO> categoryDishVOList = categoryService.getCategoryByDish();
+        return Result.success(categoryDishVOList);
     }
 }

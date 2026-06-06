@@ -3,6 +3,7 @@ package eleTakeOut.server.service;
 import eleTakeOut.common.result.PageResult;
 import eleTakeOut.pojo.dto.CategorySaveDTO;
 import eleTakeOut.pojo.dto.CategoryPageQueryDTO;
+import eleTakeOut.pojo.vo.CategoryDishVO;
 import eleTakeOut.pojo.vo.CategoryVO;
 import eleTakeOut.pojo.vo.DishVO;
 
@@ -48,4 +49,10 @@ public interface CategoryService {
      * @param id
      */
     void delete(Long id);
+
+    /**
+     * 回显分类名称和id
+     * @return
+     */
+    List<CategoryDishVO> getCategoryByDish();
 }

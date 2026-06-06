@@ -12,12 +12,13 @@
         from dish d left join category c on d.category_id = c.id
         <where>
             <if test="keyword != null and keyword != ''">
-                and name like concat('%',#{keyword},'%')
+                and d.name like concat('%',#{keyword},'%')
             </if>
             <if test="categoryName != null and categoryName != ''">
                 and c.name like concat('%',#{categoryName},'%')
             </if>
             and d.shop_id = #{shopId}
         </where>
+        order by update_time desc
     </select>
 </mapper>

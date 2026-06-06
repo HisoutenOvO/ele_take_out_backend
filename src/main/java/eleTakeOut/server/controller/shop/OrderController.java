@@ -26,7 +26,7 @@ public class OrderController {
      * 订单列表
      * @return
      */
-    @GetMapping
+    @GetMapping("/list")
     @Operation(summary = "订单列表")
     public Result<PageResult> PageQuery(OrderPageQueryDTO orderPageQueryDTO) {
         log.info("订单列表");
