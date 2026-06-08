@@ -35,6 +35,4 @@ public class OrderVO {
 
     private Integer quantity;//件数
 
-
-
 }

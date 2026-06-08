@@ -146,7 +146,7 @@ public class OrderServiceImpl implements OrderService {
     public void payment(Long id, Integer payMethod) {
         Orders orders = orderMapper.selectById(id);
         orders.setPayMethod(payMethod);
-        orders.setStatus("已支付");
+        orders.setStatus("已完成");
         orderMapper.updateById(orders);
         //支付成功后清空购物车
         cartMapper.clearByUserIdAndShopId(BaseContext.getCurrentUserId(),orders.getShopId());
@@ -163,10 +163,16 @@ public class OrderServiceImpl implements OrderService {
         List<OrderDetail> orderDetailList = orderMapper.getDetailListByOrderId(id);
         OrderDetailVO orderDetailVO = new OrderDetailVO();
         BeanUtils.copyProperties(orders,orderDetailVO);
+        //把address封装进orderDetailVO
+        Address address = addressMapper.selectById(orders.getAddressId());
+        OrderAddressVO addressVO = new OrderAddressVO();
+        BeanUtils.copyProperties(address,addressVO);
+        orderDetailVO.setAddress(addressVO);
         //把detail封装进orderVO
         orderDetailVO.setOrderDetailList(orderDetailList);
         orderDetailVO.setQuantity(orderDetailList.size());
         orderDetailVO.setShopName(shopMapper.getById(orders.getShopId()).getName());
+        orderDetailVO.setOrderNo(orders.getNumber());
         return orderDetailVO;
     }
 

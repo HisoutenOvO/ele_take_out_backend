@@ -63,6 +63,15 @@ public class AddressServiceImpl implements AddressService {
     public void update(AddressDTO addressDTO,Long id) {
         Address address = new Address();
         BeanUtils.copyProperties(addressDTO,address);
+        //如果默认地址是null，查找该地址是否是默认地址，是则设置为1，不是则设置为0
+        if(address.getIsDefault() == null){
+            if(addressMapper.selectByUserIdAndDetail(BaseContext.getCurrentUserId(),address.getDetail()).getIsDefault() == 1){
+                address.setIsDefault(1);
+            }else{
+                address.setIsDefault(0);
+            }
+        }
+
         //如果设置了此地址为默认地址，则将其他地址的默认地址设置为0
         if(address.getIsDefault() == 1){
             addressMapper.changeDefault();

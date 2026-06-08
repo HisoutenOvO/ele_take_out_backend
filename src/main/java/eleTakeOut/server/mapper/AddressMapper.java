@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.Collection;
 import java.util.List;
 
 @Mapper
@@ -32,4 +33,14 @@ public interface AddressMapper extends BaseMapper<Address> {
      */
     @Select("select * from address where id = #{id} and user_id = #{userId}")
     Address getByIdAndUserId(Long id,Long userId);
+
+
+    /**
+     * 根据用户id和地址查询地址
+     * @param currentUserId
+     * @param detail
+     * @return
+     */
+    @Select("select * from address where user_id = #{currentUserId} and detail = #{detail}")
+    Address selectByUserIdAndDetail(Long currentUserId, String detail);
 }

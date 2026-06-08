@@ -26,7 +26,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<CartVO> list(Long id) {
         //根据用户所在店铺id获取购物车列表
-        return cartMapper.selectCartByShopId(id);
+        return cartMapper.selectCartByShopIdAndUserId(id, BaseContext.getCurrentUserId());
     }
 
     /**

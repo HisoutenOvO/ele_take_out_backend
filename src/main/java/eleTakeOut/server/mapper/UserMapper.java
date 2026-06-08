@@ -14,4 +14,12 @@ public interface UserMapper extends BaseMapper<User> {
      */
     @Select("select * from user where username = #{username}")
     User getByUsername(String username);
+
+    /**
+     * 根据手机号查询
+     * @param phone
+     * @return
+     */
+    @Select("select * from user where phone = #{phone}")
+    User getByPhone(String phone);
 }

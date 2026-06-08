@@ -57,6 +57,14 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void register(UserRegisterDTO userRegisterDTO) {
+        String username = userRegisterDTO.getUsername();
+        String phone = userRegisterDTO.getPhone();
+        if(userMapper.getByPhone(phone) != null){
+            throw new BaseException("手机号已注册！");
+        }
+        if(userMapper.getByUsername(username) != null){
+            throw new BaseException("用户名已存在！");
+        }
         String password = userRegisterDTO.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
         User user = new User();

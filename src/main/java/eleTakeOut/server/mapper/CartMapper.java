@@ -10,13 +10,6 @@ import java.util.List;
 
 @Mapper
 public interface CartMapper extends BaseMapper<Cart> {
-    /**
-     * 根据店铺id查询购物车
-     * @param shopId
-     * @return
-     */
-    @Select("select * from cart where shop_id = #{shopId}")
-    List<CartVO> selectCartByShopId(Long shopId);
 
     /**
      * 根据菜品id和用户id查询购物车
@@ -33,4 +26,13 @@ public interface CartMapper extends BaseMapper<Cart> {
      */
     @Select("delete from cart where user_id = #{currentUserId} and shop_id = #{shopId}")
     void clearByUserIdAndShopId(Long currentUserId, Long shopId);
+
+    /**
+     * 根据店铺id和用户id查询购物车
+     * @param id
+     * @param currentUserId
+     * @return
+     */
+    @Select("select * from cart where shop_id = #{id} and user_id = #{currentUserId}")
+    List<CartVO> selectCartByShopIdAndUserId(Long id, Long currentUserId);
 }
