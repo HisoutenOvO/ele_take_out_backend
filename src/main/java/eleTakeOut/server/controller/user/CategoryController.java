@@ -1,7 +1,7 @@
 package eleTakeOut.server.controller.user;
 
 import eleTakeOut.common.result.Result;
-import eleTakeOut.pojo.vo.DishVO;
+import eleTakeOut.pojo.vo.DishListVO;
 import eleTakeOut.server.service.CategoryService;
 import eleTakeOut.server.service.DishService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,9 +31,9 @@ public class CategoryController {
      */
     @GetMapping("/dishes/{id}")
     @Operation(summary = "查询店铺分类下的菜品")
-    public Result<List<DishVO>> getDishes(@PathVariable Long id){
+    public Result<List<DishListVO>> getDishes(@PathVariable Long id){
         log.info("查询店铺分类下的菜品:{}",id);
-        List<DishVO> dishVOList = categoryService.getDishList(id);
+        List<DishListVO> dishVOList = categoryService.getDishList(id);
         return Result.success(dishVOList);
     }
 }

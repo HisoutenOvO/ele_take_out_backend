@@ -52,8 +52,8 @@ public class CartController {
      */
     @DeleteMapping
     @Operation(summary = "删除购物车")
-    public Result deleteCart(@RequestBody CartDTO cartDTO){
-        log.info("删除购物车");
+    public Result deleteCart(CartDTO cartDTO){
+        log.info("删除购物车{}",cartDTO.getDishId());
         cartService.delete(cartDTO);
         return Result.success();
     }

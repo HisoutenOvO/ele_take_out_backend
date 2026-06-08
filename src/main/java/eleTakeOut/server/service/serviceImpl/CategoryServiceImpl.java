@@ -8,10 +8,7 @@ import eleTakeOut.common.result.PageResult;
 import eleTakeOut.pojo.dto.CategorySaveDTO;
 import eleTakeOut.pojo.dto.CategoryPageQueryDTO;
 import eleTakeOut.pojo.entity.Category;
-import eleTakeOut.pojo.vo.CategoryDetailVO;
-import eleTakeOut.pojo.vo.CategoryDishVO;
-import eleTakeOut.pojo.vo.CategoryVO;
-import eleTakeOut.pojo.vo.DishVO;
+import eleTakeOut.pojo.vo.*;
 import eleTakeOut.server.mapper.CategoryMapper;
 import eleTakeOut.server.mapper.DishMapper;
 import eleTakeOut.server.service.CategoryService;
@@ -34,7 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @return
      */
     @Override
-    public List<DishVO> getDishList(Long id) {
+    public List<DishListVO> getDishList(Long id) {
         return dishMapper.getDishListByCategoryId(id);
     }
 

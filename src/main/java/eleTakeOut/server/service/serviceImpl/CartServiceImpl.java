@@ -36,11 +36,14 @@ public class CartServiceImpl implements CartService {
     @Override
     public void add(CartDTO cartDTO) {
         //先判断购物车中是否有该商品，如果有则数量加一，如果没有则添加
-        Cart cart = cartMapper.getByDishIdAndUserIdAndShopId(cartDTO.getDishId(), BaseContext.getCurrentUserId(),cartDTO.getShopId()).get(0);
-        if(cart == null){
-            //没有该商品，则创建该商品
-            cart = new Cart();
-            //先通过菜品id查询菜品
+        List<Cart> cartList = cartMapper.getByDishIdAndUserIdAndShopId(
+                cartDTO.getDishId(),
+                BaseContext.getCurrentUserId(),
+                cartDTO.getShopId()
+        );
+        if (cartList.isEmpty()) {
+            // 购物车没有该商品，新增
+            Cart cart = new Cart();
             Dish dish = dishMapper.selectById(cartDTO.getDishId());
             cart.setName(dish.getName());
             cart.setImage(dish.getImage());
@@ -50,8 +53,9 @@ public class CartServiceImpl implements CartService {
             cart.setShopId(cartDTO.getShopId());
             cart.setDishId(cartDTO.getDishId());
             cartMapper.insert(cart);
-        }else {
-            //购物车中已经有该商品，则数量加一
+        } else {
+            // 已有该商品，数量加一
+            Cart cart = cartList.get(0);
             cart.setNumber(cart.getNumber() + 1);
             cartMapper.updateById(cart);
         }

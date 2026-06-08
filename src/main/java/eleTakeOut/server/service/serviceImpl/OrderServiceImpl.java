@@ -34,6 +34,7 @@ public class OrderServiceImpl implements OrderService {
     private final ShopMapper shopMapper;
     private final CartMapper cartMapper;
     private final UserMapper userMapper;
+    private final DishMapper dishMapper;
 
     /**
      * 获取订单列表
@@ -41,7 +42,31 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public List<OrderVO> getList() {
-        return orderMapper.getListByUserId(BaseContext.getCurrentUserId());
+        List<Orders> orderList = orderMapper.getListByUserId(BaseContext.getCurrentUserId());
+        List<OrderVO> orderVOList = new ArrayList<>();
+        for (Orders order : orderList) {
+            List<DishOrderVO> dishList = dishMapper.getDishListByOrderId(order.getId());
+            String dishName = "";
+            Integer quantity = 0;
+                for (DishOrderVO dish : dishList) {
+                    dishName += dish.getName() + " ";
+                    quantity += dish.getNumber();
+                }
+            String dishImage = dishList.get(0).getImage();
+            OrderVO vo = OrderVO.builder()
+                    .id(order.getId())
+                    .shopId(order.getShopId())
+                    .shopName(shopMapper.getById(order.getShopId()).getName())
+                    .shopImage(shopMapper.getById(order.getShopId()).getImage())
+                    .status(order.getStatus())
+                    .actualPayment(order.getActualPayment())
+                    .dishName(dishName)
+                    .dishImage(dishImage)
+                    .quantity(quantity)
+                    .build();
+            orderVOList.add(vo);
+        }
+        return orderVOList;
     }
 
     /**
@@ -107,21 +132,9 @@ public class OrderServiceImpl implements OrderService {
         orderMapper.insertOrderDetailList(orderDetailList);
         //回显订单id
         Long orderId = orders.getId();
-        //下单成功后清空购物车
-        cartMapper.clearByUserIdAndShopId(BaseContext.getCurrentUserId(),shopId);
-        //封装进OrderSubmitVO里，用builder简化代码
-        return OrderSubmitVO.builder()
-                .id(orderId)
-                .number(number)
-                .shopName(shopName)
-                .notice(notice)
-                .address(addressVO)
-                .dishList(dishVOList)
-                .deliveryFee(deliveryFee)
-                .packingFee(packingFee)
-                .totalPrice(totalPrice)
-                .actualPayment(totalPrice + packingFee + deliveryFee - AccountFee)
-                .build();
+        OrderSubmitVO orderSubmitVO = new OrderSubmitVO();
+        orderSubmitVO.setId(orderId);
+        return orderSubmitVO;
     }
 
     /**
@@ -135,6 +148,8 @@ public class OrderServiceImpl implements OrderService {
         orders.setPayMethod(payMethod);
         orders.setStatus("已支付");
         orderMapper.updateById(orders);
+        //支付成功后清空购物车
+        cartMapper.clearByUserIdAndShopId(BaseContext.getCurrentUserId(),orders.getShopId());
     }
 
     /**

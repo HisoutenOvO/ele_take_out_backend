@@ -5,6 +5,7 @@ import eleTakeOut.pojo.dto.CategorySaveDTO;
 import eleTakeOut.pojo.dto.CategoryPageQueryDTO;
 import eleTakeOut.pojo.vo.CategoryDishVO;
 import eleTakeOut.pojo.vo.CategoryVO;
+import eleTakeOut.pojo.vo.DishListVO;
 import eleTakeOut.pojo.vo.DishVO;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface CategoryService {
      * @param id
      * @return
      */
-    List<DishVO> getDishList(Long id);
+    List<DishListVO> getDishList(Long id);
 
     /**
      * 店铺分页查询分类

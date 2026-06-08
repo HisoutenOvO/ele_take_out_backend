@@ -5,8 +5,8 @@ import com.github.pagehelper.Page;
 import eleTakeOut.pojo.dto.DishPageQueryDTO;
 import eleTakeOut.pojo.entity.Dish;
 import eleTakeOut.pojo.vo.DishDetailVO;
-import eleTakeOut.pojo.vo.DishVO;
-import org.apache.ibatis.annotations.Delete;
+import eleTakeOut.pojo.vo.DishListVO;
+import eleTakeOut.pojo.vo.DishOrderVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -21,7 +21,7 @@ public interface DishMapper extends BaseMapper<Dish> {
      * @return
      */
     @Select("select * from dish where category_id = #{categoryId}")
-    List<DishVO> getDishListByCategoryId(Long categoryId);
+    List<DishListVO> getDishListByCategoryId(Long categoryId);
 
     /**
      * 根据店铺id删除菜品
@@ -35,4 +35,11 @@ public interface DishMapper extends BaseMapper<Dish> {
      * @return
      */
     Page<DishDetailVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+    /**
+     * 根据订单id查询菜品详情
+     * @param orderId
+     * @return
+     */
+    List<DishOrderVO> getDishListByOrderId(Long orderId);
 }

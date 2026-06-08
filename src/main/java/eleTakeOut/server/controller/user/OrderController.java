@@ -26,7 +26,7 @@ public class OrderController {
      * 获取订单列表
      * @return
      */
-    @GetMapping
+    @GetMapping("/list")
     @Operation(summary = "获取订单列表")
     public Result<List<OrderVO>> list(){
         log.info("获取订单列表");
@@ -42,8 +42,8 @@ public class OrderController {
     @Operation(summary = "提交订单")
     public Result<OrderSubmitVO> submit(@RequestBody OrderSubmitDTO orderSubmitDTO){
         log.info("提交订单");
-        OrderSubmitVO ordersSubmitVO = orderService.submit(orderSubmitDTO);
-        return Result.success(ordersSubmitVO);
+        OrderSubmitVO orderSubmitVO = orderService.submit(orderSubmitDTO);
+        return Result.success(orderSubmitVO);
     }
 
     /**

@@ -2,6 +2,7 @@ package eleTakeOut.server.controller.user;
 
 
 import eleTakeOut.common.result.Result;
+import eleTakeOut.pojo.dto.ShopListDTO;
 import eleTakeOut.pojo.dto.ShopPageQueryDTO;
 import eleTakeOut.pojo.vo.ShopVO;
 import eleTakeOut.pojo.vo.CategoryVO;
@@ -27,14 +28,14 @@ public class ShopController {
 
     /**
      * 获取商家列表
-     * @param shopPageQueryDTO
+     * @param shopListDTO
      * @return
      */
     @GetMapping
     @Operation(summary = "查询店铺列表")
-    public Result<List<ShopVO>> getShopList(ShopPageQueryDTO shopPageQueryDTO){
+    public Result<List<ShopVO>> getShopList(ShopListDTO shopListDTO){
         log.info("查询店铺列表");
-        List<ShopVO> shopVO = shopService.getShopList(shopPageQueryDTO);
+        List<ShopVO> shopVO = shopService.getShopList(shopListDTO);
         return Result.success(shopVO);
     }
 
@@ -51,6 +52,11 @@ public class ShopController {
         return Result.success(shopVO);
     }
 
+    /**
+     * 查询店铺分类
+     * @param id
+     * @return
+     */
     @GetMapping("/categories/{id}")
     @Operation(summary = "查询店铺分类")
     public Result<List<CategoryVO>> getCategory(@PathVariable Long id){

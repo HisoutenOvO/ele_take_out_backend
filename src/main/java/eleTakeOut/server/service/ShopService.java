@@ -41,10 +41,10 @@ public interface ShopService {
 
     /**
      * 获取店铺列表
-     * @param shopPageQueryDTO
+     * @param shopListDTO
      * @return
      */
-    List<ShopVO> getShopList(ShopPageQueryDTO shopPageQueryDTO);
+    List<ShopVO> getShopList(ShopListDTO shopListDTO);
 
     /**
      * 获取店铺分类

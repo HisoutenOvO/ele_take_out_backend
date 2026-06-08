@@ -156,12 +156,12 @@ public class ShopServiceImpl implements ShopService {
 
     /**
      * 获取店铺列表
-     * @param shopPageQueryDTO
+     * @param shopListDTO
      * @return
      */
     @Override
-    public List<ShopVO> getShopList(ShopPageQueryDTO shopPageQueryDTO) {
-        String keywords = shopPageQueryDTO.getKeyword();
+    public List<ShopVO> getShopList(ShopListDTO shopListDTO) {
+        String keywords = shopListDTO.getKeyword();
         return shopMapper.getShopList(keywords);
     }
 

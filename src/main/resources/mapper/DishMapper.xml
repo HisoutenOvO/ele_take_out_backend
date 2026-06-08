@@ -21,4 +21,10 @@
         </where>
         order by update_time desc
     </select>
+    <select id="getDishListByOrderId" resultType="eleTakeOut.pojo.vo.DishOrderVO">
+        select d.id, d.name ,d.image ,od.number
+        from dish d left join order_detail od on d.id = od.dish_id and od.order_id = #{orderId}
+        where od.order_id = #{orderId}
+        order by d.id
+    </select>
 </mapper>

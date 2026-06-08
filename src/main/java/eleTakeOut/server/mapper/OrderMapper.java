@@ -20,7 +20,7 @@ public interface OrderMapper extends BaseMapper<Orders> {
      * @return
      */
     @Select("select * from orders where user_id = #{userId}")
-    List<OrderVO> getListByUserId(Long userId);
+    List<Orders> getListByUserId(Long userId);
 
     /**
      * 批量插入订单详情

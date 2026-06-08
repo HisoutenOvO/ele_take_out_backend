@@ -33,6 +33,8 @@ public class ShopAdminVO {
 
     private Integer status;
 
+    private String notice;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
